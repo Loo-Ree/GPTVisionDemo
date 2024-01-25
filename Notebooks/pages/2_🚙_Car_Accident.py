@@ -134,11 +134,10 @@ def main():
             else:
                 st.warning("Per favore, carica un'immagine e inserisci una domanda.")
                 
-        # Elabora l'immagine con un prompt fisso quando viene premuto il pulsante
-        if st.button("CID Analyzer"):
-            if imagelink is not None and text != "":
-                message = st.success("Analisi in corso...")
-                prompt = """
+        #prompt config
+        promptconfig = st.expander("Prompt Config", expanded=False)
+        with promptconfig:
+            CIDPrompt = st.text_area("CID Prompt", """
     You respond in Italian with your analysis of the following fields:
 
     1. Summary: Create a summary of this car report.
@@ -159,13 +158,19 @@ def main():
     11. Drawing #13: Explain the drawing from section number 13?
     12. Signatures: Do we have two signatures at the end of this document? \
     Just answer like "Two signatures detected", "One signature detected", "No signature detected"
-    """
+    """, height=600)
+        
+        # Elabora l'immagine con un prompt fisso quando viene premuto il pulsante
+        if st.button("CID Analyzer"):
+            if imagelink is not None and text != "":
+                message = st.success("Analisi in corso...")
+                prompt = CIDPrompt
                 result = gpt4V(imagelink.read(), prompt, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.GptModel)
                 message.empty()
                 st.success(result)
             else:
                 st.warning("Per favore, carica un'immagine CID.")
-    
+            
         #immagini di esempio
         samplec = st.expander("Samples", expanded=False)
         with samplec:

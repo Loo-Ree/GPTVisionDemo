@@ -17,51 +17,7 @@ page_title="GPT4-Vision demo",
 page_icon=":eye:"
 )
 
-def gpt4V(imageenc, query, apikey, apibase, gptmodel):
-    """
-    GPT4-Vision
-    """
-        # Azure Open AI
-    openai.api_type: str = "azure"
-    openai.api_key = apikey
-    openai.api_base = apibase
-    model = gptmodel
-    
-    # Endpoint
-    base_url = f"{openai.api_base}/openai/deployments/{model}"
-    endpoint = f"{base_url}/chat/completions?api-version=2023-12-01-preview"
-
-    # Header
-    headers = {"Content-Type": "application/json", "api-key": openai.api_key}
-
-    base_64_encoded_image = base64.b64encode(imageenc).decode("ascii")
-    
-    # Prompt
-    data = {
-        "messages": [
-            {"role": "system", "content": "You are a helpful assistant. Always answer in italian."},
-            {"role": "user", "content": [query, {"image": base_64_encoded_image}]},
-        ],
-        "max_tokens": 4000,
-    }
-    
-
-    # Results
-    print("DEBUG: invio dati a GPT4V")
-    response = requests.post(endpoint, headers=headers, data=json.dumps(data))
-    
-    result = "no response"
-    if response.status_code == 200:
-        result = json.loads(response.text)["choices"][0]["message"]["content"]
-    else:
-        if response.status_code == 429:
-            result ="[ERROR] Too many requests. Please wait a couple of seconds and try again."
-        else:
-            result = f"[ERROR] Error code: '{response.status_code}'" 
-
-    return result
-
-def gpt4Vplus(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, gptModel):
+def gpt4Vplus(imageenc, query, context, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, gptModel, temperature):
     """
     GPT-4 Turbo with vision and Azure AI enhancements
     """
@@ -87,11 +43,6 @@ def gpt4Vplus(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint,
     
     # Encoded image
     base_64_encoded_image = base64.b64encode(imageenc).decode("ascii")
-    
-    # Context
-    context = """
-You are a helpful assistant. Always answer in italian.
-"""
 
     # Payload
     json_data = {
@@ -110,8 +61,8 @@ You are a helpful assistant. Always answer in italian.
             {"role": "user", "content": [query, {"image": base_64_encoded_image}]},
         ],
         "max_tokens": 4000,
-        "temperature": 0.7,
-        "top_p": 1,
+        "temperature": temperature,
+        #"top_p": 1,
     }
     
     # Response
@@ -161,11 +112,17 @@ def main():
         # Inserisci il testo
         text = st.text_input("Inserisci un testo", "What is it?")
         
+                #prompt config
+        promptconfig = st.expander("Prompt Config", expanded=False)
+        with promptconfig:
+            context = st.text_area("System Prompt", "You are a helpful assistant. Always answer in italian.", height=200)
+            temperature = st.slider("Temperature", min_value=0.0, max_value=1.0, value=0.7, step=0.1)
+            
         # Elabora l'immagine e il testo quando viene premuto il pulsante
         if st.button("Elabora"):
             if imagelink is not None and text != "":
                 message = st.success("Elaborazione in corso...")
-                result = gpt4Vplus(imagelink.read(), text, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.GptModel)
+                result = gpt4Vplus(imagelink.read(), text, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.GptModel, temperature)
                 message.empty()
                 st.success(result)
             else:

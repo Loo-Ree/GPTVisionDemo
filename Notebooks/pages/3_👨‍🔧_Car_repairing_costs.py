@@ -19,7 +19,7 @@ page_title="Stima costi di carrozzeria",
 page_icon=":male-mechanic:"
 )   
 
-def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, gptModel):
+def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, gptModel, temperature):
     """
     GPT-4 Turbo with vision and Azure AI enhancements
     """
@@ -68,8 +68,8 @@ Always reply in Italian.
             {"role": "user", "content": [query, {"image": base_64_encoded_image}]},
         ],
         "max_tokens": 4000,
-        "temperature": 0.7,
-        "top_p": 1,
+        "temperature": temperature,
+        #"top_p": 1,
     }
     
     # Response
@@ -108,7 +108,7 @@ Always reply in Italian.
 
     return res
 
-def GPTcall(query, apikey, apibase, gptmodel):
+def GPTcall(query, apikey, apibase, gptmodel, temperature):
     """
     GPT invoke
     """
@@ -138,6 +138,7 @@ def GPTcall(query, apikey, apibase, gptmodel):
             {"role": "user", "content": query },
         ],
         "max_tokens": 4000,
+        "temperature": temperature
     }
     
 
@@ -167,33 +168,40 @@ def main():
         
         #costi di riparazione
         prezzi = st.text_area("Costi di riparazione", height=200, value="""
-        - cofano nuovo: 40000€-50000€
-        - paraurti nuovo: 25000€-30000€
-        - griglia nuova: 5000€-8000€
-        - fari nuovi: 6000€-9000€
+        - cofano nuovo: 4000€-5000€
+        - paraurti nuovo: 2500€-3000€
+        - griglia nuova: 500€-800€
+        - fari nuovi: 1600€-2900€
         - airbag nuovo: 1000€-3000€
         - costo orario di manodopera: 500€/ora
                 """)
         
+        #prompt config
+        promptconfig = st.expander("Prompt Config", expanded=False)
+        with promptconfig:
+            CostPrompt = st.text_area("Cost estimation Prompt", f"""
+                Classifica i tipi di danni riscontrati nell'automobile descritti di seguito in modo da stimarne i costi di riparazione. 
+                Valuta se sia necessaria una sostituzione o se sufficiente la manodopera di riparazione. 
+                Ipotizza anche le ore di lavoro necessarie per ogni riparazione o sostituzione e calcolane il costo considerando i costi seguenti.
+                Considera i range di costo seguenti per la valutazione o ipotizzali se non presenti in questa lista:
+                {prezzi}
+                """, height=300)
+            temperature = st.slider("Temperature", min_value=0.0, max_value=1.0, value=0.7, step=0.1)
+            
         # Elabora l'immagine con un prompt fisso quando viene premuto il pulsante
         if st.button("Stima Costi Carrozzeria"):
             if imagelink is not None and prezzi != "":
                 message = st.success("Analisi in corso...")
                 #analisi della foto
                 prompt = "descrivi in dettaglio i danni a questa automobile"
-                resDescription = gpt4V(imagelink.read(), prompt, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.GptModel)
+                resDescription = gpt4V(imagelink.read(), prompt, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.GptModel, temperature)
                 message.empty()
                 st.success(resDescription)                
                 #analisi dei danni
-                prompt = f"""
-                Classifica i tipi di danni riscontrati nell'automobile descritti di seguito in modo da stimarne i costi di riparazione. 
-                Ipotizza anche le ore di lavoro necessarie per ogni riparazione o sostituzione e calcolane il costo considerando i costi seguenti.
-                Considera i range di costo seguenti per la valutazione o ipotizzali se non presenti in questa lista:
-                {prezzi}
-                """
+                prompt = CostPrompt
                 query = f"{prompt}:\n'{resDescription}'"
                 message = st.success("Stima costi in corso...")
-                result = GPTcall(query, AzureKeys.ChatApiKey, AzureKeys.ChatApiBase, AzureKeys.ChatGptModel)
+                result = GPTcall(query, AzureKeys.ChatApiKey, AzureKeys.ChatApiBase, AzureKeys.ChatGptModel, temperature)
                 message.empty()
                 st.success(result)
             else:
@@ -210,13 +218,13 @@ def main():
                     f'<a href="{sample1}" target="_blank" download ><img src="{sample1}" height="100"></a>',
                     unsafe_allow_html=True,
                 )
-            # #Sample2
-            # with col2:
-            #     sample2 = "./app/static/car_report2.jpg"
-            #     st.markdown(
-            #         f'<a href="{sample2}" target="_blank" download ><img src="{sample2}" height="100"></a>',
-            #         unsafe_allow_html=True,
-            #     )
+            #Sample2
+            with col2:
+                sample2 = "./app/static/incidente_lieve1.jpg"
+                st.markdown(
+                    f'<a href="{sample2}" target="_blank" download ><img src="{sample2}" height="100"></a>',
+                    unsafe_allow_html=True,
+                )
             
     #st.info("© 2023 - GPT4-Vision - Microsoft Azure OpenAI - Demo")
     else:
