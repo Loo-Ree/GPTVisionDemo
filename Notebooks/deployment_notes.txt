@@ -1,0 +1,29 @@
+pipreqs --force
+zip -r deploy.zip Demo.py requirements.txt myglobal.py credentials.yaml pages static
+webapp con python 3.10+
+negli application settings, devi creare la variabile "SCM_DO_BUILD_DURING_DEPLOYMENT" e settarla a "true"
+nei general settings, nello startup command, metti "python -m streamlit run Demo.py --server.port 8000 --server.address 0.0.0.0 --server.enableStaticServing true"
+az webapp deploy --resource-group rgDemoGPT --name gptmfuccilodemo --src-path ./deploy.zip --async true
+az webapp deploy --resource-group rgDemoGPT --name gptitademo --src-path ./deploy.zip --async true
+
+#Password has:
+gptuser
+B@ckInBl@ack!
+
+print(stauth.Hasher(['B@ckInBl@ack!']).generate())
+
+###KEYS
+st.write("Vision API Key")
+AzureKeys.ApiBase = st.text_input("Azure OpenAI Base Api", "https://aoimfuccilosw.openai.azure.com")
+AzureKeys.ApiKey = st.text_input("Azure OpenAI Key", "4ac018829faa4e2dac1142aaddb52425", type="password")
+AzureKeys.GptModel = st.text_input("GPT Deployment name", "GPT4V")
+AzureKeys.VisionApiEndpoint = st.text_input("Azure AI Vision Endpoint", "https://aoivisionmfuccilo.cognitiveservices.azure.com/")
+AzureKeys.VisionApiKey = st.text_input("Azure AI Vision Key", "f3bcebd78a2c43d5bfa5b2c43cad5f37", type="password")
+st.write("Text API Key")
+AzureKeys.ChatApiBase = st.text_input("Azure OpenAI Base Api Chat", "https://oaimfuccilo.openai.azure.com/")
+AzureKeys.ChatApiKey = st.text_input("Azure OpenAI Key Chat", "51166339f2f3498eb48e07a1c57a24b9", type="password")
+AzureKeys.ChatGptModel = st.text_input("Chat GPT Deployment name", "gpt4")
+#AzureKeys.ApiVersion = st.text_input("Chat GPT API Version", "")
+
+
+streamlit run --server.enableStaticServing true --browser.gatherUsageStats false --browser.serverAddress "localhost" --browser.serverPort 8501 /workspaces/anaconda/Notebooks/Demo.py

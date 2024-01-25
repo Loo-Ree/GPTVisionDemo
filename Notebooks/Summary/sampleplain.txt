@@ -1,0 +1,644 @@
+
+
+
+Titolo della richiesta: Allega Bollettino 
+canale H2H
+Codice Iniziativa: ......................
+
+
+
+
+	
+Redatto da:
+Marco Maiolico - Postecom/Marketing Servizi 
+Digitali
+Data:
+23/04/2013
+Approvato da:
+
+Data:
+
+
+
+
+
+
+Indice
+STORIA DEL TEMPLATE	3
+STORIA DEL DOCUMENTO	4
+INFORMAZIONI GENERALI DELLA RICHIESTA	5
+CONTESTO DI RIFERIMENTO E OBIETTIVI	8
+1	CONTESTO AS-IS	8
+1.1	BOLLETTINO POSTALE	8
+2	OBIETTIVI	9
+3	BENEFICI ATTESI	9
+4	CONSEGUENZE DELLA MANCATA REALIZZAZIONE DELL'INTERVENTO	9
+5	DOCUMENTAZIONE DISPONIBILE	9
+ACRONIMI E DEFINIZIONI	11
+REQUISITI UTENTE	12
+6	REQUISITI SU ASPETTI DI FUNZIONAMENTO	12
+7	ALTRI ASPETTI D'INTERESSE	14
+7.1	ASPETTI DI CARICO	14
+7.2	ALTRI ASPETTI	14
+7.3	ASPETTI DI SICUREZZA DELLE INFORMAZIONI	15
+7.4	MODALITA' DI ACCESSO	15
+7.5	ASPETTI PRESTAZIONALI	15
+7.6	BACKUP, RECOVERY E STORICIZZAZIONE	15
+7.7	INDICATORI E REPORT DI MONITORAGGIO	15
+7.8	MODALITÀ DI ROLL-OUT	15
+7.9	ACCESSO AI DATI  PER AUDIT	15
+MAPPATURA REQUISITI UTENTE SU PROCESSI DI RIFERIMENTO	15
+
+
+
+
+
+
+Storia del template
+
+Versione
+Data
+Descrizione Modifiche
+1.0
+12/11/2012
+Prima emissione
+2.0
+31/01/2013
+Integrata motivazione ad integrazione del check Studio di fattibilità
+Integrato paragrafo 7.2 Aspetti di Sicurezza delle informazioni con 
+casistiche di Esonero BIA
+Modificato layout tabelle per la descrizione dei requisiti
+3.0
+08/03/2013
+Eliminate casistiche di Esonero BIA paragrafo 7.2 Aspetti di Sicurezza 
+delle informazioni ed inserito riferimento al documento esterno in cui 
+sono elencate e mantenute aggiornate le causali di esonero BIA.
+Integrate le descrizioni guida delle "nature" Studio di Fattibilità, Supporto 
+al Business e Supporto alle Gare.
+3.1
+27/03/2013
+Integrata puntualizzazione in merito all'assunzione del rischio in caso di 
+esonero nel  paragrafo 7.2 Aspetti di Sicurezza delle informazioni
+
+
+
+
+Storia del documento
+
+
+Versione
+Data
+Descrizione Modifiche
+Autore e Unità 
+Organizzativa
+1.2
+18/07/2013
+Eliminati i requisiti relativi al 
+pagamento dei bollettini e all'invio di 
+documenti contenenti sia dati 
+sensibili che bollettini
+Marco Maiolico - 
+Postecom/Marketing 
+Servizi Digitali
+1.1
+10/06/2013
+Approfondimento requisiti
+Marco Maiolico - 
+Postecom/Marketing 
+Servizi Digitali
+1.0
+23/04/2013
+Prima emissione
+Marco Maiolico - 
+Postecom/Marketing 
+Servizi Digitali
+	
+
+
+
+Informazioni generali della richiesta
+
+Obiettivo: fornire gli elementi di riferimento della richiesta. Alcuni potranno essere utilizzati per la 
+supportare la prioritizzazione dell'intervento.
+
+
+Natura della 
+richiesta
+Selezionare un solo check tra i quattro di seguito proposti
+
+
+ 
+Selezionare se si richiede la realizzazione 
+o la variazione di  funzionalità applicative.
+A titolo di esempio sono comprese in 
+questa categoria anche le esigenze di 
+parametrizzazione, le estrazioni spot, 
+stampe on demand ecc. 
+
+
+ 
+
+Selezionare se si richiede la 
+predisposizione di uno Studio di fattibilità 
+Lo studio di fattibilità ha l'obiettivo di 
+fornire gli elementi e le informazioni 
+necessarie alla Funzione Richiedente per 
+prendere decisioni riguardo all'opportunità 
+di avviare specifici progetti, e di valutare 
+la modalità più idonea di avvio. Lo studio 
+di fattibilità rende disponibili uno o più 
+scenari alternativi, le relative informazioni 
+di budget per la realizzazione 
+dell'esigenza al fine di consentire alla alla 
+Funzione Richiedente di valutare la 
+soluzione più profittevole da realizzare, in 
+grado di soddisfare la propria esigenza.
+Al fine di facilitare l'individuazione delle 
+soluzioni alternative e di chiarire lo scope 
+dell'iniziativa, la Funzione Richiedente è 
+chiamata ad esplicitare nel documento dei 
+Requisiti Utente le motivazioni che 
+l'hanno indotta a richiedere uno Studio di 
+Fattibilità e gli eventuali vincoli di 
+Business che devono essere rispettati 
+dalle possibili soluzioni.
+
+
+
+Motivo
+Descrivere la motivazione/obiettivo della richiesta di studio di fattibilità 
+
+
+
+ 
+
+Selezionare se si richiede la 
+predisposizione di uno Supporto alle 
+Gare. 
+Il Supporto Gare ha l'obiettivo di 
+supportare la Funzione Richiedente nel 
+fornire una macrostima 
+tecnico/economica della soluzione 
+individuata in grado di rispondere ai 
+requisiti del Bando di Gara ed 
+eventualmente fornire un supporto per la 
+stesura dell'offerta tecnica.
+
+
+ 
+
+
+Selezionare se si richiede supporto 
+all'analisi degli impatti ICT funzionale agli 
+scenari evolutivi prefigurati dal Business;  
+supporto normativo/applicativo sugli  
+ambiti gestiti; Monitoraggio puntuale di 
+campagne commerciali, lancio prodotti, 
+etc. ; Analisi puntuali richieste al fine di 
+indagare su determinati fenomeni o per 
+verificare il corretto comportamento delle 
+applicazioni in uso e spesso 
+propedeutiche a successive attività di 
+bonifica; affiancamento temporaneo agli 
+utenti nella normale o straordinaria 
+operatività  (a distanza di tempo  dal 
+rilascio in produzione), ecc.
+Struttura 
+richiedente
+Inserire la denominazione della  struttura  richiedente
+Titolo breve della 
+richiesta
+Inserire un'intestazione descrittiva della richiesta
+ADI / Macroarea di 
+riferimento
+Codice: ADI DCO 139 del 2013
+Macro Area: Sviluppi sw per ampliamento della gamma di prodotto, dei servizi 
+accessori, dei canali di accesso, delle modalità di pagamento.
+Data desiderata di 
+rilascio
+<DATA>
+ 
+Inserire la data di rilascio indicata dalla struttura richiedente ed selezionare il 
+check se questa non è derogabile
+
+
+
+
+
+Motivo della 
+richiesta
+Selezionare tra i check il prevalente rispetto alla richiesta 
+
+ 
+<Rif. Normativo>
+<Data di decorrenza>
+
+Valorizzare se l'esigenza è derivante da una 
+prescrizione  normativa (in termini legali / 
+sanzioni)
+Inserire il riferimento della normativa primaria 
+(ad es. D.Lgs 58/98-Testo unico Finanza) o 
+secondaria, (ad es. Istruzioni di vigilanza 
+consob) e la relativa decorrenza
+
+ 
+
+Applicabile se la richiesta determina un 
+aumento dei ricavi. 
+Indicare gli incrementi di ricavi attesi
+Allegare se presenti il Business Case o 
+eventuali presentazioni a supporto
+
+ 
+
+Iniziativa legata all'effcientamento di uno o 
+più processi operativi aziendali o dettata 
+dalla necessità di adeguamento ad un 
+cambiamento organizzativo
+Indicare  i parametri di efficientamento
+
+ 
+
+Iniziativa legata alla necessità di supportare i 
+clienti per verifiche,chiarimenti,etc  
+URGENTE
+<Motivazione urgenza>
+
+Valorizzare solo nei casi di oggettiva necessità di urgenza e indicare le 
+motivazioni a supporto. 
+Ad esempio l'urgenza può essere determinata da richieste  del Top Mgmt (es. 
+Report per l'AD), da evidenze richieste da parte di organismi esterni (es. Guardia 
+di Finanza, Banca d'Italia), ecc.
+
+
+
+Contesto di riferimento e obiettivi
+
+1	Contesto AS-IS
+Il presente documento ha l'obiettivo di presentare una descrizione di massima dei requisiti 
+necessari ad un adeguamento di alcuni moduli software in modo che sia possibile allegare 
+bollettini ai documenti spediti tramite i servizi di Raccomandata Online (ROL) e Posta 
+Prioritaria Online (LOL).
+
+Di seguito verranno riportate informazioni relative ai bollettini che dovranno essere gestiti dalla 
+piattaforma NPCE.
+1.1	Bollettino postale
+Il bollettino di conto corrente postale può essere BIS o TER a seconda che si componga di 2 o 
+3 parti. Viene denominato modello CH8/Bis quando è formato da due parti ed esattamente 
+dalla "Ricevuta di Versamento" e dalla "Ricevuta di Accredito". Viene denominato modello 
+CH8/Ter quando è formato da tre parti ed esattamente dalla "Ricevuta di Versamento", dalla 
+"Attestazione di Versamento" e dalla "Ricevuta di Accredito".
+Di seguito sono indicate le varie tipologie di bollettino (TD):
+Tipo Documento 
+Descrizione
+Campi prestampati
+Corpo/codeline
+451 
+Bollettini Bianchi 
+personalizzati 
+Numero di ccp., Tipo 
+Documento, Intestazione
+674
+Bollettini premarcati di Clienti 
+"non Fatturatori" (non è noto 
+l'importo)
+Numero di ccp., Tipo 
+Documento, Intestazione, 
+Codice Cliente
+896
+Bollettini premarcati di Clienti 
+"Fatturatori" (è noto l'importo)
+Numero di ccp., Importo, Tipo 
+Documento,
+
+
+TD 451 MANUALE: l'importo e i dati del versante vengono compilati manualmente dal 
+versante all'interno delle caselle.
+
+TD 451 PRESTAMPATO: l'importo e i dati del versante vengono stampati dal titolare del 
+conto.
+*	Qualora sia noto l'importo, lo stesso può essere stampato nel solo corpo del bollettino, 
+ma non in codeline, eliminando le caselle e la riga relativa all'importo in lettere;
+*	qualora siano noti i dati del versante, gli stessi possono essere stampati, eliminando le 
+relative caselle.
+
+TD 674 (premarcato non fatturatore - IMPORTO SEMPRE MANUALE): la zona cliente, può 
+essere:
+*	parzialmente prestampata dal titolare del conto, nel caso in cui il dato che si riferisce al 
+versante è conosciuto e la causale è manuale;
+*	viceversa, nel caso in cui il dato che si riferisce alla causale è conosciuto e i dati del 
+versante sono manuali.
+
+TD 896 (premarcato fatturatore): tutti i dati del versante sono conosciuti dal titolare del conto, 
+per cui questa tipologia non prevede la stampa delle caselle "manualità".
+
+Per maggiori approfondimenti occorre far riferimento al documento "Autorizzazione alla 
+Stampa in Proprio" rilasciato da BancoPosta.
+2	Obiettivi
+
+Adeguamento di alcuni moduli software in modo che sia possibile allegare bollettini ai 
+documenti spediti tramite i servizi di Raccomandata Online (ROL) e Posta Prioritaria Online 
+(LOL).
+Al fine di permettere ai Clienti di poter spedire bollettini allegati ai documenti inviati tramite 
+raccomandata e posta prioritaria dovranno essere effettuati degli interventi sui seguenti 
+sistemi:
+*	NPCE
+*	Canale H2H
+*	Postel
+Si richiede un intervento sui sistemi di erogazione dei servizi di Postaonline per il canale H2H 
+che permetta l'integrazione del bollettino con l'invio di Posta Raccomandata Online e Posta 
+Prioritaria Online. Deve essere possibile inoltrare a Postel oltre ai documenti anche le 
+informazioni per la stampa/prefincatura del bollettino.
+Si prevede con il rilascio della funzionalità di gestione degli invii con bollettini la possibilità di 
+offrire ai Clienti PostaonlineH2H la rendicontazione, attualmente gratuita, dei bollettini.
+3	Benefici attesi
+N.A.
+
+4	Conseguenze della mancata realizzazione dell'intervento
+N.A.
+
+5	Documentazione disponibile 
+
+
+Titolo documento
+Descrizione breve del contenuto del documento
+AUTORIZZAZIONE ALLA 
+STAMPA IN PROPRIO
+ 
+
+
+
+
+Acronimi e definizioni
+
+
+Acronimo/Definizione
+Descrizione
+PI
+Poste Italiane
+NPCE
+Nuova Piattaforma di Comunicazioni Elettroniche
+MSPD
+Marketing Servizi Postali e Digitali
+ROL
+Raccomandata Online
+LOL
+Lettera Online
+TOL
+Telegramma Online
+ROLOFFICE
+Raccomandata Office
+CGS
+Condizioni Generali di Servizio
+OTB
+Order to Bill
+PCOMCE
+POSTECOM - Comunicazioni Elettroniche
+EDWH
+Enterprise Data Warehouse
+GUI
+Graphical User Interface
+CGC
+Condizioni Generali di Contratto
+
+
+
+
+
+
+
+Requisiti Utente
+
+6	Requisiti su aspetti di funzionamento
+
+
+Codice 
+Requisito
+Titolo Requisito
+Descrizione Requisito
+ID Categoria 
+del requisito
+Req-F-001
+
+Invio metadati Bollettino
+L'utente (H2H) deve poter allegare i bollettini 
+ai documenti spediti tramite i servizi di ROL e 
+LOL indicando i metadati del bollettino.
+L'utente deve poter inviare, quindi, assieme ai 
+documenti uploadati i metadati relativi alla 
+compilazione/stampa dei bollettini in modo da 
+permettere a Postel la prefincatura del 
+bollettino.
+N.A.
+Req-F-002
+Bollettini multipli
+L'utente deve poter inserire/inviare, all'interno 
+dello stesso documento/invio, i metadati per 
+più bollettini da prefincare.
+N.A.
+Req-F-003
+Impaginazione Bollettino
+
+L'utente deve poter inviare, per ogni 
+bollettino, un logo/immagine o delle 
+informazioni testuali (anche formattate) da 
+inserire sulla stessa pagina di stampa del 
+bollettino.
+Eventuali informazioni testuali o 
+logo/immagine specificate dall'utente devono 
+essere posizionate a fianco del  bollettino 
+stesso (il retro deve essere vuoto).
+In caso di più bollettini allegati allo stesso 
+documento, l'utente deve poter decidere se 
+affiancare due bollettini su una stessa pagina 
+(in questo caso non potranno essere 
+specificate informazioni testuali o 
+loghi/immagini aggiuntive).
+N.A.
+Req-F-004
+Stampa Bollettino
+I bollettini devono essere stampati su fogli 
+dedicati.
+I fogli contenenti i bollettini saranno 
+posizionati automaticamente in coda al 
+documento. 
+Il numero massimo di fogli, compresi quelli 
+relativi ai bollettini, dovrà essere 18.
+N.A.
+Req-F-005
+Preview Documento
+L'utente deve poter verificare la preview del 
+documento pdf contenente sia i file 
+allegati/inviati che il bollettino/i creato dai 
+metadati inviati dal Cliente.
+Naturalmente dovranno essere visualizzate,  
+nella pagina del bollettino, eventuali 
+immagini/loghi/testo formattato inviate dal 
+Cliente. 
+N.A.
+Req-F-006
+Controlli Metadati
+I sistemi coinvolti devono poter verificare i 
+metadati relativi alla compilazione del 
+bollettino, in particolare deve essere effettuata 
+una verifica del numero e dell'intestazione 
+del conto corrente postale per tutte le 
+tipologie di bollettini.
+Il controllo deve essere blindato su tutti i dati 
+significativi, come pubblicato nel Documento 
+Ufficiale "Autorizzazione alla Stampa in 
+Proprio" rilasciato da BancoPosta.
+Di seguito si semplificano le tipologie: 
+TD 451
+- controllo stesso numero di conto sia nel 
+corpo che in codeline ed esatta intestazione;
+TD 674 
+- idem TD 451 e codice cliente stampato sia 
+nel corpo che in codeline (MOD.93);
+TD 896
+- idem 674 e l'obbligatorietà della stampa del 
+data matrix e del codice a barre che devono 
+rispettare quanto stampato in codeline.
+N.A.
+Req-F-007
+Recupero Bollettino
+
+L'utente (H2H) deve poter recuperare dalle 
+richieste in corso (invii non confermati) 
+l'informazione relativa alla richiesta di stampa 
+del bollettino/i. 
+Non è richiesto il recupero dei metadati che 
+potranno essere verificati dalla preview del 
+documento (file + immagine del bollettino/i).
+N.A.
+Req-F-008
+Tool di Gestione 
+Applicativa
+L'operatore della Gestione Applicativa del 
+servizio PostaonlineH2H deve poter 
+verificare dall'attuale consolle NPCE le 
+informazioni relative alla richiesta di stampa 
+del bollettino/i.
+N.A.
+
+
+
+
+7	Altri aspetti d'interesse
+7.1	Aspetti di carico 
+
+Utenti
+N.A.
+Volumi
+Un recente approfondimento con la Forza Vendita delle offerte Postaonline prevede per il 
+primo semestre dal rilascio i seguenti volumi:
+Prodotto
+Canale
+Volumi (K)
+ROL
+Postaonline Corporate
+16
+ROL
+Postaonline PMI
+7
+ROL
+Postaonline H2H
+48
+ROL
+PostaonlineDesk
+14
+LOL
+Postaonline Corporate
+11
+LOL
+Postaonline PMI
+5
+LOL
+Postaonline H2H
+92
+LOL
+PostaonlineDesk
+7
+7.2	Altri aspetti
+
+Codice 
+Requisito
+Titolo Requisito
+Requisito
+Req-NF-001
+Compatibilità con le 
+esistenti implementazioni
+La scelta del software, degli strumenti e degli 
+ambienti previsti per lo sviluppo degli applicativi 
+nonché dei linguaggi di programmazione deve 
+prevedere la piena compatibilità con le esistenti 
+implementazioni ovvero integrarsi con quanto già 
+installato presso i Sistemi e le Strutture di Poste 
+Italiane interessati.
+Req-NF-002
+Compatibilità con 
+architettura HW/SW
+Le scelte dovranno inoltre essere compatibili ed 
+integrabili con l'attuale architettura HW/SW delle 
+strutture di Poste interessate
+Req-NF-003
+Mock up di navigazione 
+Deve essere fornito un mock up di navigazione 
+prima dell'inizio della fase di sviluppo per le 
+funzionalità che impattano le GUI.
+Req-NF-004
+Aggiornamento delle 
+specifiche di integrazione 
+dei web service 
+Lo sviluppo per il canale H2H deve essere 
+accompagnato dall'aggiornamento delle 
+specifiche di integrazione dei web service
+Req-NF-005
+Aggiornamento Contratti
+
+I contratti del canale H2H dovranno essere 
+aggiornati/integrati con la funzionalità di richiesta 
+di stampa/prefincatura dei bollettini.
+Req-NF-006
+Autorizzazione Stampa
+
+Per poter gestire l'invio/stampa dei bollettini con 
+la piattaforma NPCE occorre richiedere a 
+BancoPosta l'autorizzazione alla stampa in 
+proprio per ogni tipologia di bollettino.
+L'autorizzazione per ogni tipologia di bollettino 
+sarà unica per tutti i Clienti.
+7.3	Aspetti di Sicurezza delle informazioni
+N.A.
+7.4	Modalita' di accesso
+N.A.
+7.5	Aspetti Prestazionali 
+N.A.
+7.6	Backup, Recovery e Storicizzazione
+N.A.
+7.7	Indicatori e report di monitoraggio 
+N.A.
+7.8	Modalità di roll-out 
+N.A.
+7.9	Accesso ai dati  per Audit
+N.A.
+Mappatura Requisiti Utente su Processi di riferimento
+
+N.A.
+
+ 
+
+
+Tipo documento: Request
+Rif. Template: Requisiti Utente
+Data: 27/03/2013               Versione: 3.1
+Pag. 1/1
+Titolo Documento: Requisiti Utente
+Status: <Emesso>
+Data: 18/07/2013
+Versione: 1.2
+Nome file: Allega Bollettino H2H_v1.2	
+Doc. Attachment N.:1
+
+Codice di riservatezza Ad Uso interno
+
