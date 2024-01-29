@@ -117,7 +117,7 @@ def main():
             else:
                 st.warning("Per favore, seleziona una conversazione e un prompt.")
         
-        st.info("© 2023 - Azure OpenAI Contact Center Analytics - Demo")
+        st.info("© 2024 - Azure OpenAI Contact Center Analytics - Demo")
     else:
         st.error("...credo serva una password... ⛔")
         

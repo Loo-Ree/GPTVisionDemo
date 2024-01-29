@@ -15,11 +15,11 @@ import myglobal
 from myglobal import AzureKeys
 
 st.set_page_config(
-page_title="Gestione Convenzione Indennizzo Diretto (CID)",
+page_title="Gestione Convenzione Indennizzo Diretto (CAI)",
 page_icon=":blue_car:"
 )   
 
-def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, gptModel):
+def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt4VisionModel):
     """
     GPT-4 Turbo with vision and Azure AI enhancements
     """
@@ -27,7 +27,7 @@ def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, gpt
     openai.api_type: str = "azure"
     openai.api_key = ApiKey
     openai.api_base = ApiBase
-    model = gptModel
+    model = Gpt4VisionModel
     indexname = "car-reports-tests"
     # Azure AI Vision (aka Azure Computer Vision)
     azure_aivision_endpoint = VisionApiEndpoint
@@ -111,10 +111,10 @@ Always reply in Italian.
 
 def main():
     if st.session_state['authentication_status']:
-        st.title("GPT4-Vision demo - Gestione Convenzione Indennizzo Diretto (CID)")
+        st.title("GPT4-Vision demo - Gestione Convenzione Indennizzo Diretto (CAI)")
         
         # Carica l'immagine
-        imagelink = st.file_uploader("Carica un modulo CID", type=["jpg", "jpeg", "png"])
+        imagelink = st.file_uploader("Carica un modulo CAI", type=["jpg", "jpeg", "png"])
         if imagelink is not None:
             st.image(imagelink, caption=imagelink.name, use_column_width=True)
         
@@ -128,7 +128,7 @@ def main():
         if st.button("Query"):
             if imagelink is not None and text != "":
                 message = st.success("Elaborazione in corso...")
-                result = gpt4V(imagelink.read(), text, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.GptModel)
+                result = gpt4V(imagelink.read(), text, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModel)
                 message.empty()
                 st.success(result)
             else:
@@ -137,39 +137,41 @@ def main():
         #prompt config
         promptconfig = st.expander("Prompt Config", expanded=False)
         with promptconfig:
-            CIDPrompt = st.text_area("CID Prompt", """
-    You respond in Italian with your analysis of the following fields:
+                    CAIPrompt = st.text_area("CAI Prompt", """
+                Rispondi in italiano con la tua analisi dei seguenti campi:
 
-    1. Summary: Create a summary of this car report.
-    2. Names: What are the names of owners of vehicle A and B? \
-    Just answer like vehicle A = 'SMITH', Vehicle B = 'JOHNSON'
-    3. Vehicles: What is the brand and model of vehicle A and B? \
-    Just answer like vehicle A = 'AUDI', Vehicle B = 'MERCEDES'
-    4. Date and time: What is the date and time of the accident? \
-    Just answer like '01-jan-2023 22:00'
-    5. Address: What is the address of the accident? \
-    Just answer like '78 Avenue de Paris 75012 Paris'
-    6. Damage: Share some information about the damage.
-    Others damage: Display some information about material damage other than to vehicles A and B.
-    7. Injured people: Do we have injured people?
-    8. Section 14 comments: What are the comments in section 14?
-    9. Damage classification: Classify this damage as LIGHT DAMAGE, MEDIUM DAMAGE, SEVERE DAMAGE.
-    10. Drawings #10: Explain the drawings from section number 10 for vehicles A and B?
-    11. Drawing #13: Explain the drawing from section number 13?
-    12. Signatures: Do we have two signatures at the end of this document? \
-    Just answer like "Two signatures detected", "One signature detected", "No signature detected"
-    """, height=600)
+                1. Sommario: Crea un sommario di questa Constatazione Amichevole di Incidente (CAI).
+                2. Nomi: Quali sono i nomi dei proprietari dei veicoli A e B? \
+                Rispondi semplicemente, ad esempio: veicolo A = 'JOHN SMITH', Veicolo B = 'MIKE JOHNSON'
+                3. Veicoli: Qual è la marca e il modello del veicolo A e B? \
+                Rispondi semplicemente, ad esempio: veicolo A = 'AUDI', Veicolo B = 'MERCEDES'
+                4. Data e ora: Qual è la data e l'ora dell'incidente? \
+                Rispondi semplicemente, ad esempio:  '01-gen-2023 22:00'
+                5. Indirizzo: Qual è l'indirizzo dell'incidente? \
+                Rispondi semplicemente, ad esempio:  '78 Avenue de Paris 75012 Paris'
+                6. Danni: Condividi alcune informazioni sui danni.
+                Altri danni: Mostra alcune informazioni sui danni materiali diversi dai veicoli A e B se presenti nel documento.
+                7. Persone ferite: Abbiamo persone ferite?
+                8. Commenti sezione 14: Quali sono i commenti nella sezione 14?
+                9. Classificazione dei danni: Classifica questi danni come DANNO LIEVE, DANNO MEDIO, DANNO GRAVE.
+                10. Disegni #10: Spiega i disegni della sezione numero 10 per i veicoli A e B.
+                Rispondi semplicemente, ad esempio: veicolo A = 'Automobile, danno al faro anteriore sinistro e fiancata anteriore sinistra', Veicolo B = 'Motociclo, danno alla parte anteriore, danno al fianco destro' 
+                11. Disegno #13: Spiega il disegno della sezione numero 13.
+                Rispondi semplicemente, ad esempio: 'Il veicolo A procedeva su una strada rettilinea mentre il veicolo B sopraggiungeva superandolo. Un contatto si è verificato tra i due veicoli'
+                12. Firme: Abbiamo due firme alla fine di questo documento? \
+                Rispondi semplicemente come "Due firme rilevate", "Una firma rilevata", "Nessuna firma rilevata"
+                """, height=600)
         
         # Elabora l'immagine con un prompt fisso quando viene premuto il pulsante
-        if st.button("CID Analyzer"):
+        if st.button("CAI Analyzer"):
             if imagelink is not None and text != "":
                 message = st.success("Analisi in corso...")
-                prompt = CIDPrompt
-                result = gpt4V(imagelink.read(), prompt, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.GptModel)
+                prompt = CAIPrompt
+                result = gpt4V(imagelink.read(), prompt, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModel)
                 message.empty()
                 st.success(result)
             else:
-                st.warning("Per favore, carica un'immagine CID.")
+                st.warning("Per favore, carica un'immagine CAI.")
             
         #immagini di esempio
         samplec = st.expander("Samples", expanded=False)
@@ -190,7 +192,7 @@ def main():
                     unsafe_allow_html=True,
                 )
             
-    #st.info("© 2023 - GPT4-Vision - Microsoft Azure OpenAI - Demo")
+        st.info("© 2024 - GPT4-Vision - Microsoft Azure OpenAI - Demo")
     else:
         st.error("...credo serva una password... ⛔")
         

@@ -17,7 +17,7 @@ page_title="GPT4-Vision demo",
 page_icon=":eye:"
 )
 
-def gpt4Vplus(imageenc, query, context, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, gptModel, temperature):
+def gpt4Vplus(imageenc, query, context, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt4VisionModel, temperature):
     """
     GPT-4 Turbo with vision and Azure AI enhancements
     """
@@ -25,7 +25,7 @@ def gpt4Vplus(imageenc, query, context, ApiKey, VisionApiKey, ApiBase, VisionApi
     openai.api_type: str = "azure"
     openai.api_key = ApiKey
     openai.api_base = ApiBase
-    model = gptModel
+    model = Gpt4VisionModel
     indexname = "car-reports-tests"
     # Azure AI Vision (aka Azure Computer Vision)
     azure_aivision_endpoint = VisionApiEndpoint
@@ -122,7 +122,7 @@ def main():
         if st.button("Elabora"):
             if imagelink is not None and text != "":
                 message = st.success("Elaborazione in corso...")
-                result = gpt4Vplus(imagelink.read(), text, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.GptModel, temperature)
+                result = gpt4Vplus(imagelink.read(), text, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModel, temperature)
                 message.empty()
                 st.success(result)
             else:
@@ -176,7 +176,7 @@ def main():
                     unsafe_allow_html=True,
                 )
             
-        st.info("© 2023 - GPT4-Vision - Microsoft Azure OpenAI - Demo")
+        st.info("© 2024 - GPT4-Vision - Microsoft Azure OpenAI - Demo")
     else:
         st.error("...credo serva una password... ⛔")
 

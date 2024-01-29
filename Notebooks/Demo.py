@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import yaml
 from yaml.loader import SafeLoader
@@ -9,6 +10,14 @@ st.set_page_config(
     # page_icon="👋",
     page_icon=":robot_face:"
 )
+
+def load_env_variables(filename):
+    variables = {}
+    with open(filename, 'r') as f:
+        for line in f:
+            name, value = line.strip().split('=')
+            variables[name] = value
+    return variables
 
 #AUTHN
 name, authentication_status, username = myglobal.authenticate('main')
@@ -36,7 +45,7 @@ if authentication_status:
     ### 👈 Seleziona una demo qui 
     per vedere qualche esempio di cosa può fare Microsoft Azure e la Generative AI! \n
     - 👁️ Vision - Chiedi a GPT4-Vision e Azure AI Vision di analizzare una immagine
-    - 🚙 Car Accident - Carica un modulo di Convenzione Indennizzo Diretto (CID) relativo ad un incidente e chiedi a GPT4-Vision di analizzarlo
+    - 🚙 Car Accident - Carica un modulo di Convenzione Indennizzo Diretto (CAI) relativo ad un incidente e chiedi a GPT4-Vision di analizzarlo
     - 👨‍🔧 Car Repairing Costs - Valuta e stima i costi di riparazione di un'automobile incidentata
     - 🛫 Travel Agent - Organizza le tue prossime vacanze con l'aiuto degli agent Azure OpenAI    
     - 📞 Contact Center - Estrai le informazioni più utili da una conversazione telefonica e valuta la soddisfazione del cliente
@@ -45,25 +54,48 @@ if authentication_status:
     """
     )
 
-    st.info("© 2023 - Azure OpenAI - Demo by Microsoft Customer Success Unit team")
+    st.info("© 2024 - Azure OpenAI - Demo by Microsoft Customer Success Unit team")
     
-    cont = st.expander("Azure OpenAI Settings", expanded=False)
-    with cont:
-        # Inserisci la API key OpenAI
-        st.markdown("### Vision API Key")
-        AzureKeys.ApiBase = st.text_input("Azure OpenAI Base Api", "https://aoimfuccilosw.openai.azure.com")
-        AzureKeys.ApiKey = st.text_input("Azure OpenAI Key", "4ac018829faa4e2dac1142aaddb52425", type="password")
-        AzureKeys.GptModel = st.text_input("GPT Deployment name", "GPT4V")
-        AzureKeys.VisionApiEndpoint = st.text_input("Azure AI Vision Endpoint", "https://aoivisionmfuccilo.cognitiveservices.azure.com/")
-        AzureKeys.VisionApiKey = st.text_input("Azure AI Vision Key", "f3bcebd78a2c43d5bfa5b2c43cad5f37", type="password")
-        st.markdown("### Text API Key")
-        AzureKeys.ChatApiBase = st.text_input("Azure OpenAI Base Api Chat", "https://oaimfuccilo.openai.azure.com/")
-        AzureKeys.ChatApiKey = st.text_input("Azure OpenAI Key Chat", "51166339f2f3498eb48e07a1c57a24b9", type="password")
-        AzureKeys.ChatGptModel = st.text_input("Chat GPT Deployment name", "gpt4")
-        #AzureKeys.ApiVersion = st.text_input("Chat GPT API Version", "")
-        st.markdown("### Travel Agent API Key")
-        AzureKeys.TravelAgentApiEndpoint = st.text_input("Travel Agent Service Api Endpoint", "https://vacationassistantapi.azurewebsites.net/chat")
-        AzureKeys.TravelAgentApiKey = st.text_input("Travel Agent Service Api Key", "18409d64-b6bd-4024-9de8-859bf8c1208a", type="password")
+    #     cont = st.expander("Azure OpenAI Settings", expanded=False)
+    #     with cont:
+    #         # Inserisci la API key OpenAI
+    #         st.markdown("### Vision API Key")
+    #         AzureKeys.ApiBase = st.text_input("Azure OpenAI Base Api -------", "")
+    #         AzureKeys.ApiKey = st.text_input("Azure OpenAI Key", "", type="password")
+    #         AzureKeys.GptModel = st.text_input("GPT Deployment name", "")
+    #         AzureKeys.VisionApiEndpoint = st.text_input("Azure AI Vision Endpoint", "")
+    #         AzureKeys.VisionApiKey = st.text_input("Azure AI Vision Key", "", type="password")
+    #         st.markdown("### Text API Key")
+    #         AzureKeys.ChatApiBase = st.text_input("Azure OpenAI Base Api Chat", "")
+    #         AzureKeys.ChatApiKey = st.text_input("Azure OpenAI Key Chat", "", type="password")
+    #         AzureKeys.ChatGptModel = st.text_input("Chat GPT Deployment name", "")
+    #         #AzureKeys.ApiVersion = st.text_input("Chat GPT API Version", "")
+    #         st.markdown("### Travel Agent API Key")
+    #         AzureKeys.TravelAgentApiEndpoint = st.text_input("Travel Agent Service Api Endpoint", "")
+    #         AzureKeys.TravelAgentApiKey = st.text_input("Travel Agent Service Api Key", "", type="password")
+
+    # Load local environment if available
+    env_variables = None
+    try:
+        env_variables = load_env_variables('env.txt')
+    except FileNotFoundError:
+        print('Environment file not found')
+
+    # Load environment variables
+    AzureKeys.ApiBase = os.getenv("AZURE_OPENAI_API_ENDPOINT", None if env_variables is None else env_variables.get("AZURE_OPENAI_API_ENDPOINT"))
+    AzureKeys.ApiKey = os.getenv("AZURE_OPENAI_API_KEY", None if env_variables is None else env_variables.get("AZURE_OPENAI_API_KEY"))
+    AzureKeys.Gpt4VisionModel = os.getenv("AZURE_OPENAI_GPT4V_DEPLOYMENT_NAME", None if env_variables is None else env_variables.get("AZURE_OPENAI_GPT4V_DEPLOYMENT_NAME"))
+    AzureKeys.VisionApiEndpoint = os.getenv("AZURE_MULTISERVICE_ACCOUNT_ENDPOINT", None if env_variables is None else env_variables.get("AZURE_MULTISERVICE_ACCOUNT_ENDPOINT"))
+    AzureKeys.VisionApiKey = os.getenv("AZURE_MULTISERVICE_ACCOUNT_API_KEY", None if env_variables is None else env_variables.get("AZURE_MULTISERVICE_ACCOUNT_API_KEY"))
+    AzureKeys.ChatGptModel = os.getenv("AZURE_OPENAI_GPT4_DEPLOYMENT_NAME", None if env_variables is None else env_variables.get("AZURE_OPENAI_GPT4_DEPLOYMENT_NAME"))
+
+    # Print environment variables -- DEBUG
+    print("ApiBase: " + ("None" if AzureKeys.ApiBase is None else AzureKeys.ApiBase))
+    print("ApiKey: " + ("None" if AzureKeys.ApiKey is None else AzureKeys.ApiKey[:2] + '***'))
+    print("Gpt4VisionModel: " + ("None" if AzureKeys.Gpt4VisionModel is None else AzureKeys.Gpt4VisionModel))
+    print("VisionApiEndpoint: " + ("None" if AzureKeys.VisionApiEndpoint is None else AzureKeys.VisionApiEndpoint))
+    print("VisionApiKey: " + ("None" if AzureKeys.VisionApiKey is None else AzureKeys.VisionApiKey[:2] + '***'))
+    print("ChatGptModel: " + ("None" if AzureKeys.ChatGptModel is None else AzureKeys.ChatGptModel))
     
 elif authentication_status == False:
     st.error('Username/password is incorrect')

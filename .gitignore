@@ -2,3 +2,4 @@
 /.streamlit
 /default.sqlite
 /mydb.sqlite
+env.txt

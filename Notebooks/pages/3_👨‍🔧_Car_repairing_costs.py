@@ -19,7 +19,7 @@ page_title="Stima costi di carrozzeria",
 page_icon=":male-mechanic:"
 )   
 
-def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, gptModel, temperature):
+def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt4VisionModel, temperature):
     """
     GPT-4 Turbo with vision and Azure AI enhancements
     """
@@ -27,7 +27,7 @@ def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, gpt
     openai.api_type: str = "azure"
     openai.api_key = ApiKey
     openai.api_base = ApiBase
-    model = gptModel
+    model = Gpt4VisionModel
     indexname = "car-repairing-tests"
     # Azure AI Vision (aka Azure Computer Vision)
     azure_aivision_endpoint = VisionApiEndpoint
@@ -194,7 +194,7 @@ def main():
                 message = st.success("Analisi in corso...")
                 #analisi della foto
                 prompt = "descrivi in dettaglio i danni a questa automobile"
-                resDescription = gpt4V(imagelink.read(), prompt, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.GptModel, temperature)
+                resDescription = gpt4V(imagelink.read(), prompt, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModel, temperature)
                 message.empty()
                 st.success(resDescription)                
                 #analisi dei danni
@@ -226,7 +226,7 @@ def main():
                     unsafe_allow_html=True,
                 )
             
-    #st.info("© 2023 - GPT4-Vision - Microsoft Azure OpenAI - Demo")
+        st.info("© 2024 - GPT4-Vision - Microsoft Azure OpenAI - Demo")
     else:
         st.error("...credo serva una password... ⛔")
         
