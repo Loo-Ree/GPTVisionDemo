@@ -3,4 +3,6 @@
 /default.sqlite
 /mydb.sqlite
 /__pycache__
+/env
+/gpt4venv
 env.txt
