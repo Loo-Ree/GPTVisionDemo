@@ -6,7 +6,7 @@ class AzureKeys:
     #vision
     ApiBase = ""
     ApiKey = ""
-    Gpt4VisionModel = ""
+    Gpt4VisionModelDeployment = ""
     VisionApiEndpoint = ""
     VisionApiKey = ""
     #text

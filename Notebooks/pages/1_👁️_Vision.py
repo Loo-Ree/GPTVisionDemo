@@ -17,7 +17,7 @@ page_title="GPT4-Vision demo",
 page_icon=":eye:"
 )
 
-def gpt4Vplus(imageenc, query, context, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt4VisionModel, temperature):
+def gpt4Vplus(imageenc, query, context, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt4VisionModelDeployment, temperature):
     """
     GPT-4 Turbo with vision and Azure AI enhancements
     """
@@ -25,7 +25,7 @@ def gpt4Vplus(imageenc, query, context, ApiKey, VisionApiKey, ApiBase, VisionApi
     openai.api_type: str = "azure"
     openai.api_key = ApiKey
     openai.api_base = ApiBase
-    model = Gpt4VisionModel
+    model = Gpt4VisionModelDeployment
     indexname = "car-reports-tests"
     # Azure AI Vision (aka Azure Computer Vision)
     azure_aivision_endpoint = VisionApiEndpoint
@@ -33,7 +33,7 @@ def gpt4Vplus(imageenc, query, context, ApiKey, VisionApiKey, ApiBase, VisionApi
     
     
     # Endpoint
-    base_url = f"{openai.api_base}/openai/deployments/{model}"
+    base_url = f"{openai.api_base}openai/deployments/{model}"
     gpt4vision_endpoint = (
         f"{base_url}/extensions/chat/completions?api-version=2023-12-01-preview"
     )
@@ -46,7 +46,7 @@ def gpt4Vplus(imageenc, query, context, ApiKey, VisionApiKey, ApiBase, VisionApi
 
     # Payload
     json_data = {
-        "model": "gpt-4-vision-preview",
+        "model": "gpt-4-vision-deployment",
         "enhancements": {"ocr": {"enabled": True}, "grounding": {"enabled": True}},
         "dataSources": [
             {
@@ -66,7 +66,7 @@ def gpt4Vplus(imageenc, query, context, ApiKey, VisionApiKey, ApiBase, VisionApi
     }
     
     # Response
-    print("DEBUG: invio dati a GPT4V")
+    print("DEBUG: sending call to GPT: " + gpt4vision_endpoint)
     response = requests.post(
         gpt4vision_endpoint, headers=headers, data=json.dumps(json_data)
     )
@@ -122,7 +122,7 @@ def main():
         if st.button("Elabora"):
             if imagelink is not None and text != "":
                 message = st.success("Elaborazione in corso...")
-                result = gpt4Vplus(imagelink.read(), text, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModel, temperature)
+                result = gpt4Vplus(imagelink.read(), text, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature)
                 message.empty()
                 st.success(result)
             else:

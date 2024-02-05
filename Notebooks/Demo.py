@@ -78,13 +78,14 @@ if authentication_status:
     env_variables = None
     try:
         env_variables = load_env_variables('env.txt')
+        print('Environment file loaded')
     except FileNotFoundError:
         print('Environment file not found')
 
     # Load environment variables
     AzureKeys.ApiBase = os.getenv("AZURE_OPENAI_API_ENDPOINT", None if env_variables is None else env_variables.get("AZURE_OPENAI_API_ENDPOINT"))
     AzureKeys.ApiKey = os.getenv("AZURE_OPENAI_API_KEY", None if env_variables is None else env_variables.get("AZURE_OPENAI_API_KEY"))
-    AzureKeys.Gpt4VisionModel = os.getenv("AZURE_OPENAI_GPT4V_DEPLOYMENT_NAME", None if env_variables is None else env_variables.get("AZURE_OPENAI_GPT4V_DEPLOYMENT_NAME"))
+    AzureKeys.Gpt4VisionModelDeployment = os.getenv("AZURE_OPENAI_GPT4V_DEPLOYMENT_NAME", None if env_variables is None else env_variables.get("AZURE_OPENAI_GPT4V_DEPLOYMENT_NAME"))
     AzureKeys.VisionApiEndpoint = os.getenv("AZURE_MULTISERVICE_ACCOUNT_ENDPOINT", None if env_variables is None else env_variables.get("AZURE_MULTISERVICE_ACCOUNT_ENDPOINT"))
     AzureKeys.VisionApiKey = os.getenv("AZURE_MULTISERVICE_ACCOUNT_API_KEY", None if env_variables is None else env_variables.get("AZURE_MULTISERVICE_ACCOUNT_API_KEY"))
     AzureKeys.ChatGptModel = os.getenv("AZURE_OPENAI_GPT4_DEPLOYMENT_NAME", None if env_variables is None else env_variables.get("AZURE_OPENAI_GPT4_DEPLOYMENT_NAME"))
@@ -92,7 +93,7 @@ if authentication_status:
     # Print environment variables -- DEBUG
     print("ApiBase: " + ("None" if AzureKeys.ApiBase is None else AzureKeys.ApiBase))
     print("ApiKey: " + ("None" if AzureKeys.ApiKey is None else AzureKeys.ApiKey[:2] + '***'))
-    print("Gpt4VisionModel: " + ("None" if AzureKeys.Gpt4VisionModel is None else AzureKeys.Gpt4VisionModel))
+    print("Gpt4VisionModelDeployment: " + ("None" if AzureKeys.Gpt4VisionModelDeployment is None else AzureKeys.Gpt4VisionModelDeployment))
     print("VisionApiEndpoint: " + ("None" if AzureKeys.VisionApiEndpoint is None else AzureKeys.VisionApiEndpoint))
     print("VisionApiKey: " + ("None" if AzureKeys.VisionApiKey is None else AzureKeys.VisionApiKey[:2] + '***'))
     print("ChatGptModel: " + ("None" if AzureKeys.ChatGptModel is None else AzureKeys.ChatGptModel))

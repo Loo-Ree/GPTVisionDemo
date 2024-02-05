@@ -19,7 +19,7 @@ page_title="Gestione Convenzione Indennizzo Diretto (CAI)",
 page_icon=":blue_car:"
 )   
 
-def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt4VisionModel):
+def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt4VisionModelDeployment):
     """
     GPT-4 Turbo with vision and Azure AI enhancements
     """
@@ -27,7 +27,7 @@ def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt
     openai.api_type: str = "azure"
     openai.api_key = ApiKey
     openai.api_base = ApiBase
-    model = Gpt4VisionModel
+    model = Gpt4VisionModelDeployment
     indexname = "car-reports-tests"
     # Azure AI Vision (aka Azure Computer Vision)
     azure_aivision_endpoint = VisionApiEndpoint
@@ -35,7 +35,7 @@ def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt
     
     
     # Endpoint
-    base_url = f"{openai.api_base}/openai/deployments/{model}"
+    base_url = f"{openai.api_base}openai/deployments/{model}"
     gpt4vision_endpoint = (
         f"{base_url}/extensions/chat/completions?api-version=2023-12-01-preview"
     )
@@ -74,8 +74,7 @@ Always reply in Italian.
     }
     
     # Response
-    print("DEBUG: invio dati a GPT4V")
-    print(gpt4vision_endpoint)
+    print("DEBUG: sending call to GPT: " + gpt4vision_endpoint)
     response = requests.post(
         gpt4vision_endpoint, headers=headers, data=json.dumps(json_data)
     )
@@ -128,7 +127,7 @@ def main():
         if st.button("Query"):
             if imagelink is not None and text != "":
                 message = st.success("Elaborazione in corso...")
-                result = gpt4V(imagelink.read(), text, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModel)
+                result = gpt4V(imagelink.read(), text, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment)
                 message.empty()
                 st.success(result)
             else:
@@ -167,7 +166,7 @@ def main():
             if imagelink is not None and text != "":
                 message = st.success("Analisi in corso...")
                 prompt = CAIPrompt
-                result = gpt4V(imagelink.read(), prompt, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModel)
+                result = gpt4V(imagelink.read(), prompt, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment)
                 message.empty()
                 st.success(result)
             else:

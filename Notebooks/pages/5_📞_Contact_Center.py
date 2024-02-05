@@ -28,7 +28,7 @@ def GPTcall(query, apikey, apibase, gptmodel):
     model = gptmodel
     
     # Endpoint
-    base_url = f"{openai.api_base}/openai/deployments/{model}"
+    base_url = f"{openai.api_base}openai/deployments/{model}"
     endpoint = f"{base_url}/chat/completions?api-version=2023-12-01-preview"
 
     # Header
@@ -51,7 +51,7 @@ def GPTcall(query, apikey, apibase, gptmodel):
     
 
     # Results
-    print("DEBUG: invio dati a GPT4V")
+    print("DEBUG: sending call to GPT: " + endpoint)
     response = requests.post(endpoint, headers=headers, data=json.dumps(data))
     
     result = "no response"
@@ -111,7 +111,7 @@ def main():
             if transcript != "" and prompt != "":
                 message = st.success("Elaborazione in corso...")
                 query = f"{prompt}{transcript}"
-                result = GPTcall(query, AzureKeys.ChatApiKey, AzureKeys.ChatApiBase, AzureKeys.ChatGptModel)
+                result = GPTcall(query, AzureKeys.ApiKey, AzureKeys.ApiBase, AzureKeys.ChatGptModel)
                 message.empty()
                 st.success(result)
             else:

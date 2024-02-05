@@ -19,7 +19,7 @@ page_title="Stima costi di carrozzeria",
 page_icon=":male-mechanic:"
 )   
 
-def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt4VisionModel, temperature):
+def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt4VisionModelDeployment, temperature):
     """
     GPT-4 Turbo with vision and Azure AI enhancements
     """
@@ -27,7 +27,7 @@ def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt
     openai.api_type: str = "azure"
     openai.api_key = ApiKey
     openai.api_base = ApiBase
-    model = Gpt4VisionModel
+    model = Gpt4VisionModelDeployment
     indexname = "car-repairing-tests"
     # Azure AI Vision (aka Azure Computer Vision)
     azure_aivision_endpoint = VisionApiEndpoint
@@ -35,7 +35,7 @@ def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt
     
     
     # Endpoint
-    base_url = f"{openai.api_base}/openai/deployments/{model}"
+    base_url = f"{openai.api_base}openai/deployments/{model}"
     gpt4vision_endpoint = (
         f"{base_url}/extensions/chat/completions?api-version=2023-12-01-preview"
     )
@@ -73,8 +73,7 @@ Always reply in Italian.
     }
     
     # Response
-    print("DEBUG: invio dati a GPT4V")
-    print(gpt4vision_endpoint)
+    print("DEBUG: sending call to GPT: " + gpt4vision_endpoint)
     response = requests.post(
         gpt4vision_endpoint, headers=headers, data=json.dumps(json_data)
     )
@@ -119,7 +118,7 @@ def GPTcall(query, apikey, apibase, gptmodel, temperature):
     model = gptmodel
     
     # Endpoint
-    base_url = f"{openai.api_base}/openai/deployments/{model}"
+    base_url = f"{openai.api_base}openai/deployments/{model}"
     endpoint = f"{base_url}/chat/completions?api-version=2023-12-01-preview"
 
     # Header
@@ -143,7 +142,7 @@ def GPTcall(query, apikey, apibase, gptmodel, temperature):
     
 
     # Results
-    print("DEBUG: invio dati a GPT4V")
+    print("DEBUG: sending call to GPT: " + endpoint)
     response = requests.post(endpoint, headers=headers, data=json.dumps(data))
     
     result = "no response"
@@ -194,14 +193,14 @@ def main():
                 message = st.success("Analisi in corso...")
                 #analisi della foto
                 prompt = "descrivi in dettaglio i danni a questa automobile"
-                resDescription = gpt4V(imagelink.read(), prompt, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModel, temperature)
+                resDescription = gpt4V(imagelink.read(), prompt, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature)
                 message.empty()
                 st.success(resDescription)                
                 #analisi dei danni
                 prompt = CostPrompt
                 query = f"{prompt}:\n'{resDescription}'"
                 message = st.success("Stima costi in corso...")
-                result = GPTcall(query, AzureKeys.ChatApiKey, AzureKeys.ChatApiBase, AzureKeys.ChatGptModel, temperature)
+                result = GPTcall(query, AzureKeys.ApiKey, AzureKeys.ApiBase, AzureKeys.ChatGptModel, temperature)
                 message.empty()
                 st.success(result)
             else:
