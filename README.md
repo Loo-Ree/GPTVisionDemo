@@ -11,7 +11,6 @@ This model is able to understand the context of an entire conversation and respo
 - [Build](#Build)
 - [Deployment](#Deployment)
 - [Usage](#usage)
-- [Contributing](#contributing)
 - [License](#license)
 
 
@@ -19,21 +18,25 @@ This model is able to understand the context of an entire conversation and respo
 
 The only action to perform for building the project is to pack everything in a zip file which then can be run either locally or on an Azure Web Application resource. 
 
-Assuming you are located into the project folder, for Unix/Linux: 
+Assuming you are located into the project folder, for Unix/Linux run: 
 
+```zip -r deploy.zip Demo.py requirements.txt myglobal.py credentials.yaml pages static```
+
+for Windows, using PowerShell run:
+
+```Compress-Archive -Path Demo.py, requirements.txt, myglobal.py, credentials.yaml, pages, static -DestinationPath deploy.zip```
 
 ## Deployment
 
-Instructions on how to install and set up the project.
+The application can be run locally. Assuming you are located into the project folder, use the following command run:
+
+```streamlit run --server.enableStaticServing true --browser.gatherUsageStats false --browser.serverAddress "localhost" --browser.serverPort 8501 Demo.py```
 
 
 ## Usage
 
 Instructions on how to use the project and any relevant examples.
 
-## Contributing
-
-Guidelines on how to contribute to the project.
 
 ## License
 
