@@ -47,32 +47,12 @@ if authentication_status:
     - 👁️ Vision - Chiedi a GPT4-Vision e Azure AI Vision di analizzare una immagine
     - 🚙 Car Accident - Carica un modulo di Convenzione Indennizzo Diretto (CAI) relativo ad un incidente e chiedi a GPT4-Vision di analizzarlo
     - 👨‍🔧 Car Repairing Costs - Valuta e stima i costi di riparazione di un'automobile incidentata
-    - 🛫 Travel Agent - Organizza le tue prossime vacanze con l'aiuto degli agent Azure OpenAI    
-    - 📞 Contact Center - Estrai le informazioni più utili da una conversazione telefonica e valuta la soddisfazione del cliente
         
     ### Vuoi saperne di più? [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service)
     """
     )
 
     st.info("© 2024 - Azure OpenAI - Demo by Microsoft Customer Success Unit team")
-    
-    #     cont = st.expander("Azure OpenAI Settings", expanded=False)
-    #     with cont:
-    #         # Inserisci la API key OpenAI
-    #         st.markdown("### Vision API Key")
-    #         AzureKeys.ApiBase = st.text_input("Azure OpenAI Base Api -------", "")
-    #         AzureKeys.ApiKey = st.text_input("Azure OpenAI Key", "", type="password")
-    #         AzureKeys.GptModel = st.text_input("GPT Deployment name", "")
-    #         AzureKeys.VisionApiEndpoint = st.text_input("Azure AI Vision Endpoint", "")
-    #         AzureKeys.VisionApiKey = st.text_input("Azure AI Vision Key", "", type="password")
-    #         st.markdown("### Text API Key")
-    #         AzureKeys.ChatApiBase = st.text_input("Azure OpenAI Base Api Chat", "")
-    #         AzureKeys.ChatApiKey = st.text_input("Azure OpenAI Key Chat", "", type="password")
-    #         AzureKeys.ChatGptModel = st.text_input("Chat GPT Deployment name", "")
-    #         #AzureKeys.ApiVersion = st.text_input("Chat GPT API Version", "")
-    #         st.markdown("### Travel Agent API Key")
-    #         AzureKeys.TravelAgentApiEndpoint = st.text_input("Travel Agent Service Api Endpoint", "")
-    #         AzureKeys.TravelAgentApiKey = st.text_input("Travel Agent Service Api Key", "", type="password")
 
     # Load local environment if available
     env_variables = None
