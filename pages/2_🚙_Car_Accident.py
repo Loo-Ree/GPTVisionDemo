@@ -1,112 +1,13 @@
 import streamlit as st
-import base64
-import datetime
-import glob
-import json
-import openai
-import os
-import requests
-import sys
 
-from io import BytesIO
-from PIL import Image
+import utilities.gpt4_helper as gpt4_helper
 
-import myglobal
 from myglobal import AzureKeys
 
 st.set_page_config(
 page_title="Gestione Convenzione Indennizzo Diretto (CAI)",
 page_icon=":blue_car:"
 )   
-
-def gpt4V(imageenc, query, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt4VisionModelDeployment):
-    """
-    GPT-4 Turbo with vision and Azure AI enhancements
-    """
-        # Azure Open AI
-    openai.api_type: str = "azure"
-    openai.api_key = ApiKey
-    openai.api_base = ApiBase
-    model = Gpt4VisionModelDeployment
-    indexname = "car-reports-tests"
-    # Azure AI Vision (aka Azure Computer Vision)
-    azure_aivision_endpoint = VisionApiEndpoint
-    azure_aivision_key = VisionApiKey
-    
-    
-    # Endpoint
-    base_url = f"{openai.api_base}openai/deployments/{model}"
-    gpt4vision_endpoint = (
-        f"{base_url}/extensions/chat/completions?api-version=2023-12-01-preview"
-    )
-
-    # Header
-    headers = {"Content-Type": "application/json", "api-key": openai.api_key}
-    
-    # Encoded image
-    base_64_encoded_image = base64.b64encode(imageenc).decode("ascii")
-    
-    # Context
-    context = """
-You are an insurance AI expert. You will analyse a car report document. 
-Always reply in Italian.
-"""
-
-    # Payload
-    json_data = {
-        "model": "gpt-4-vision-preview",
-        "enhancements": {"ocr": {"enabled": True}, "grounding": {"enabled": True}},
-        "dataSources": [
-            {
-                "type": "AzureComputerVision",
-                "endpoint": azure_aivision_endpoint,
-                "key": azure_aivision_key,
-                "indexName": indexname,
-            }
-        ],
-        "messages": [
-            {"role": "system", "content": context},
-            {"role": "user", "content": [query, {"image": base_64_encoded_image}]},
-        ],
-        "max_tokens": 4000,
-        "temperature": 0.7,
-        "top_p": 1,
-    }
-    
-    # Response
-    print("DEBUG: sending call to GPT: " + gpt4vision_endpoint)
-    response = requests.post(
-        gpt4vision_endpoint, headers=headers, data=json.dumps(json_data)
-    )
-
-    # Testing the status code from the model response
-    res = "no response"
-    
-    if response.status_code == 200:
-        now = str(datetime.datetime.today().strftime("%d-%b-%Y %H:%M:%S"))
-        result = json.loads(response.text)
-        res = result["choices"][0]["message"]["content"]
-        print(res)
-        
-        prompt_tokens = result["usage"]["prompt_tokens"]
-        completion_tokens = result["usage"]["completion_tokens"]
-        total_tokens = result["usage"]["total_tokens"]
-
-        print("\n\033[1;31;32mDone:", now)
-        print(f"Prompt tokens = {prompt_tokens} | Completion tokens = {completion_tokens} \
-| Total tokens = {total_tokens}")
-        
-        return res
-    
-    elif response.status_code == 429:
-        res = f"[429 Error] Too many requests. Please wait a couple of seconds and try again.\n '{json.loads(response.text)}'"
-        print(json.loads(response.text))
-
-    else:
-        res = f"[Error] Error Code: {response.status_code}\n '{json.loads(response.text)}'"
-        print(json.loads(response.text))
-
-    return res
 
 def main():
     if st.session_state['authentication_status']:
@@ -121,13 +22,22 @@ def main():
         option = st.selectbox("Scegli una domanda", 
                     ["Generate a summary", "Do we have some witness?", "Explain the drawing from section number 13", "How many signatures do we have at the end of the document?", "What are the damages for vehicles A and B?"
                         ])
-        text = st.text_input("o digitane una", option)        
+        query = st.text_input("o digitane una", option)        
+
+        # Context
+        context = """
+            You are an insurance AI expert. You will analyse a car report document. 
+            Always reply in Italian.
+        """
+
+        # Temperature
+        temperature = "0.7"
         
         # Elabora l'immagine e con la query utente quando viene premuto il pulsante
         if st.button("Query"):
-            if imagelink is not None and text != "":
+            if imagelink is not None and query != "":
                 message = st.success("Elaborazione in corso...")
-                result = gpt4V(imagelink.read(), text, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment)
+                result = gpt4_helper.gpt4VWithExtensions(imagelink.read(), query, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature)
                 message.empty()
                 st.success(result)
             else:
@@ -163,10 +73,10 @@ def main():
         
         # Elabora l'immagine con un prompt fisso quando viene premuto il pulsante
         if st.button("CAI Analyzer"):
-            if imagelink is not None and text != "":
+            if imagelink is not None and query != "":
                 message = st.success("Analisi in corso...")
                 prompt = CAIPrompt
-                result = gpt4V(imagelink.read(), prompt, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment)
+                result = gpt4_helper.gpt4VWithExtensions(imagelink.read(), prompt, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature)
                 message.empty()
                 st.success(result)
             else:

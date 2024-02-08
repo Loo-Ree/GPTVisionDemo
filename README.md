@@ -15,6 +15,7 @@ This model is able to understand the context of an entire conversation and respo
 - [Local Deployment](#local-deployment)
 - [Azure Deployment](#azure-deployment)
 - [Environment Variables](#environment-variables)
+- [Update Frequency](#update-frequency)
 - [License](#license)
 
 
@@ -76,7 +77,7 @@ Assuming you are located into the project folder, for Unix/Linux run:
 
 for Windows, using PowerShell run:
 
-```Compress-Archive -Path Demo.py, requirements.txt, myglobal.py, credentials.yaml, pages, static -DestinationPath deploy.zip```
+```Compress-Archive -Path Demo.py, requirements.txt, myglobal.py, credentials.yaml, pages, static, utilities -DestinationPath deploy.zip```
 
 If required, wipe out the old zip file before creating a new one. 
 
@@ -121,6 +122,10 @@ The following table list out the required environment variables with a descripti
 | AZURE_MULTISERVICE_ACCOUNT_ENDPOINT | Fill it with your Azure AI Services Multi-service account endpoint. You can find it on your Azure resouce, in the section "Keys and Endpoint". |
 | AZURE_MULTISERVICE_ACCOUNT_API_KEY | Fill it with your Azure AI Services Multi-service account ApiKey. You can find it on your Azure resouce, in the section "Keys and Endpoint". | 
 
+
+## Update frequency
+
+Please note that this repository is an extremely simple prototipe, which won't be frequently updated. Make sure to check dependencies, versions and the like before using. 
 
 ## License
 

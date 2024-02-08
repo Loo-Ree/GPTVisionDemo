@@ -1,104 +1,13 @@
 import streamlit as st
-import datetime
-import openai
-import os
-import base64
-import requests
-import json
-import sys
-import myglobal
-from myglobal import AzureKeys
 
-from openai import AzureOpenAI
-from IPython.display import Image
+import utilities.gpt4_helper as gpt4_helper
+
+from myglobal import AzureKeys
 
 st.set_page_config(
 page_title="GPT4-Vision demo",
 page_icon=":eye:"
 )
-
-def gpt4Vplus(imageenc, query, context, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt4VisionModelDeployment, temperature):
-    """
-    GPT-4 Turbo with vision and Azure AI enhancements
-    """
-        # Azure Open AI
-    openai.api_type: str = "azure"
-    openai.api_key = ApiKey
-    openai.api_base = ApiBase
-    model = Gpt4VisionModelDeployment
-    indexname = "car-reports-tests"
-    # Azure AI Vision (aka Azure Computer Vision)
-    azure_aivision_endpoint = VisionApiEndpoint
-    azure_aivision_key = VisionApiKey
-    
-    
-    # Endpoint
-    base_url = f"{openai.api_base}openai/deployments/{model}"
-    gpt4vision_endpoint = (
-        f"{base_url}/extensions/chat/completions?api-version=2023-12-01-preview"
-    )
-
-    # Header
-    headers = {"Content-Type": "application/json", "api-key": openai.api_key}
-    
-    # Encoded image
-    base_64_encoded_image = base64.b64encode(imageenc).decode("ascii")
-
-    # Payload
-    json_data = {
-        "model": "gpt-4-vision-deployment",
-        "enhancements": {"ocr": {"enabled": True}, "grounding": {"enabled": True}},
-        "dataSources": [
-            {
-                "type": "AzureComputerVision",
-                "endpoint": azure_aivision_endpoint,
-                "key": azure_aivision_key,
-                "indexName": indexname,
-            }
-        ],
-        "messages": [
-            {"role": "system", "content": context},
-            {"role": "user", "content": [query, {"image": base_64_encoded_image}]},
-        ],
-        "max_tokens": 4000,
-        "temperature": temperature,
-        #"top_p": 1,
-    }
-    
-    # Response
-    print("DEBUG: sending call to GPT: " + gpt4vision_endpoint)
-    response = requests.post(
-        gpt4vision_endpoint, headers=headers, data=json.dumps(json_data)
-    )
-
-    # Testing the status code from the model response
-    res = "no response"
-    
-    if response.status_code == 200:
-        now = str(datetime.datetime.today().strftime("%d-%b-%Y %H:%M:%S"))
-        result = json.loads(response.text)
-        res = result["choices"][0]["message"]["content"]
-        print(res)
-        
-        prompt_tokens = result["usage"]["prompt_tokens"]
-        completion_tokens = result["usage"]["completion_tokens"]
-        total_tokens = result["usage"]["total_tokens"]
-
-        print("\n\033[1;31;32mDone:", now)
-        print(f"Prompt tokens = {prompt_tokens} | Completion tokens = {completion_tokens} \
-| Total tokens = {total_tokens}")
-        
-        return res
-    
-    elif response.status_code == 429:
-        res = f"[429 Error] Too many requests. Please wait a couple of seconds and try again.\n '{json.loads(response.text)}'"
-        print(json.loads(response.text))
-
-    else:
-        res = f"[Error] Error Code: {response.status_code}\n '{json.loads(response.text)}'"
-        print(json.loads(response.text))
-
-    return res
 
 def main():
     if st.session_state['authentication_status']:
@@ -122,7 +31,7 @@ def main():
         if st.button("Elabora"):
             if imagelink is not None and text != "":
                 message = st.success("Elaborazione in corso...")
-                result = gpt4Vplus(imagelink.read(), text, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature)
+                result = gpt4_helper.gpt4VWithExtensions(imagelink.read(), text, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature)
                 message.empty()
                 st.success(result)
             else:

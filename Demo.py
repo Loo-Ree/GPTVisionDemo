@@ -1,7 +1,6 @@
 import os
 import streamlit as st
-import yaml
-from yaml.loader import SafeLoader
+
 import myglobal
 from myglobal import AzureKeys
 
@@ -84,4 +83,3 @@ elif authentication_status == False:
 elif authentication_status == None:
     st.warning('Please enter your username and password')
     st.session_state['authentication_status'] = False
-
