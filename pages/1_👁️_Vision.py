@@ -24,7 +24,7 @@ def main():
                 #prompt config
         promptconfig = st.expander("Prompt Config", expanded=False)
         with promptconfig:
-            context = st.text_area("System Prompt", "You are a helpful assistant. Always answer in italian.", height=200)
+            context = st.text_area("System Prompt", "You are a helpful assistant. ALWAYS ANSWER IN ITALIAN.", height=200)
             temperature = st.slider("Temperature", min_value=0.0, max_value=1.0, value=0.7, step=0.1)
             
         # Elabora l'immagine e il testo quando viene premuto il pulsante

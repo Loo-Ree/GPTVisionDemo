@@ -27,7 +27,7 @@ def main():
         # Context
         context = """
             You are an insurance AI expert. You will analyse a car report document. 
-            Always reply in Italian.
+            ALWAYS ANSWER IN ITALIAN.
         """
 
         # Temperature
@@ -47,7 +47,7 @@ def main():
         promptconfig = st.expander("Prompt Config", expanded=False)
         with promptconfig:
                     CAIPrompt = st.text_area("CAI Prompt", """
-                Rispondi in italiano con la tua analisi dei seguenti campi:
+                Rispondi in ITALIANO con la tua analisi dei seguenti campi:
 
                 1. Sommario: Crea un sommario di questa Constatazione Amichevole di Incidente (CAI).
                 2. Nomi: Quali sono i nomi dei proprietari dei veicoli A e B? \

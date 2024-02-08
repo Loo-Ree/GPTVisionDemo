@@ -108,7 +108,7 @@ def gpt4(query, context, apikey, apibase, gptmodel, temperature):
     # Context
     context = """
         You are a car mechanic AI expert that support Insurance agent to estimate repairing costs from the description of a damaged car.
-        Always reply in Italian.
+        ALWAYS ANSWER IN ITALIAN.
         """
 
     # Prompt

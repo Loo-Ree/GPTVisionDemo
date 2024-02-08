@@ -31,7 +31,7 @@ def main():
         # Context
         context = """
             You are a car mechanic AI expert that support Insurance agent to list car damages from a picture.
-            Always reply in Italian.
+            ALWAYS ANSWER IN ITALIAN.
         """
         
         #prompt config
