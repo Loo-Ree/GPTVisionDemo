@@ -1,6 +1,6 @@
 AZURE_OPENAI_API_ENDPOINT=https://<<azure-openai-resource-name>>.openai.azure.com/
 AZURE_OPENAI_RESOURCE=<<azure-openai-resource-name>>
-AZURE_OPENAI_API_KEY=<<azure-openai-resource-api-key>>
+AZURE_OPENAI_APIKEY=<<azure-openai-resource-api-key>>
 AZURE_OPENAI_GPT4V_DEPLOYMENT_NAME=<<azure-openai-model-deployment-for-gpt4vision>>
 AZURE_MULTISERVICE_ACCOUNT_ENDPOINT=<<azure-multiservice-account-endpoint>>
 AZURE_MULTISERVICE_ACCOUNT_API_KEY=<<azure-multiservice-account-api-key>>

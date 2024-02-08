@@ -64,7 +64,7 @@ if authentication_status:
 
     # Load environment variables
     AzureKeys.ApiBase = os.getenv("AZURE_OPENAI_API_ENDPOINT", None if env_variables is None else env_variables.get("AZURE_OPENAI_API_ENDPOINT"))
-    AzureKeys.ApiKey = os.getenv("AZURE_OPENAI_API_KEY", None if env_variables is None else env_variables.get("AZURE_OPENAI_API_KEY"))
+    AzureKeys.ApiKey = os.getenv("AZURE_OPENAI_APIKEY", None if env_variables is None else env_variables.get("AZURE_OPENAI_APIKEY"))
     AzureKeys.Gpt4VisionModelDeployment = os.getenv("AZURE_OPENAI_GPT4V_DEPLOYMENT_NAME", None if env_variables is None else env_variables.get("AZURE_OPENAI_GPT4V_DEPLOYMENT_NAME"))
     AzureKeys.VisionApiEndpoint = os.getenv("AZURE_MULTISERVICE_ACCOUNT_ENDPOINT", None if env_variables is None else env_variables.get("AZURE_MULTISERVICE_ACCOUNT_ENDPOINT"))
     AzureKeys.VisionApiKey = os.getenv("AZURE_MULTISERVICE_ACCOUNT_API_KEY", None if env_variables is None else env_variables.get("AZURE_MULTISERVICE_ACCOUNT_API_KEY"))

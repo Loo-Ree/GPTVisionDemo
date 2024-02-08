@@ -34,7 +34,7 @@ It is suggested to create a dedicated virtual env for python. There are several 
 
 Create an environment:  
 
-```python3 -m venv gpt4venv```
+```python -m venv gpt4venv```
 
 Activate it (Linux/Unix): 
 
@@ -115,7 +115,7 @@ The following table list out the required environment variables with a descripti
 | SCM_DO_BUILD_DURING_DEPLOYMENT | It should be set to ```true```. | 
 | AZURE_OPENAI_RESOURCE | The name of your Azure OpenAI resource. | 
 | AZURE_OPENAI_API_ENDPOINT      | Fill it with your Azure OpenAI endpoint. You can find it on your Azure OpenAI resource, in the section "Keys and Endpoint". |
-| AZURE_OPENAI_API_KEY           | Fill it with your Azure OpenAI ApiKey. Available on your Azure OpenAI resource, in the section "Keys and Endpoint". |
+| AZURE_OPENAI_APIKEY           | Fill it with your Azure OpenAI ApiKey. Available on your Azure OpenAI resource, in the section "Keys and Endpoint". |
 | AZURE_OPENAI_GPT4V_DEPLOYMENT_NAME | Your model deployment name, the one that was defined when you deployed GPT4 Vision in your Azure OpenAI Studio. |
 | AZURE_OPENAI_GPT4_DEPLOYMENT_NAME | Your model deployment name, the one that was defined when you deployed GPT4 standard in your Azure OpenAI Studio. |
 | AZURE_MULTISERVICE_ACCOUNT_ENDPOINT | Fill it with your Azure AI Services Multi-service account endpoint. You can find it on your Azure resouce, in the section "Keys and Endpoint". |

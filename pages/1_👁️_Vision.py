@@ -133,17 +133,17 @@ def main():
         with samplec:
             col1, col2, col3, col4 =  st.columns(4)
             #Sample1
-            with col1:
-                sample1 = "./app/static/amazon-lego.png"
-                st.markdown(
-                    f'<a href="{sample1}" target="_blank" download="Amazon" ><img src="{sample1}" height="100"></a>',
-                    unsafe_allow_html=True,
-                )
-                sample5 = "./app/static/matrimonio.jpeg"
-                st.markdown(
-                    f'<a href="{sample5}" target="_blank" download="attoMatrimonio" ><img src="{sample5}" height="100"></a>',
-                    unsafe_allow_html=True,
-                )
+            # with col1:
+            #     sample1 = "./app/static/amazon-lego.png"
+            #     st.markdown(
+            #         f'<a href="{sample1}" target="_blank" download="Amazon" ><img src="{sample1}" height="100"></a>',
+            #         unsafe_allow_html=True,
+            #     )
+            #     sample5 = "./app/static/matrimonio.jpeg"
+            #     st.markdown(
+            #         f'<a href="{sample5}" target="_blank" download="attoMatrimonio" ><img src="{sample5}" height="100"></a>',
+            #         unsafe_allow_html=True,
+            #     )
             #Sample2
             with col2:
                 sample2 = "./app/static/foca.jpg"
