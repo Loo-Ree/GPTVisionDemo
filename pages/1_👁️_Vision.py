@@ -40,21 +40,9 @@ def main():
         #immagini di esempio
         samplec = st.expander("Samples", expanded=False)
         with samplec:
-            col1, col2, col3, col4 =  st.columns(4)
-            #Sample1
-            # with col1:
-            #     sample1 = "./app/static/amazon-lego.png"
-            #     st.markdown(
-            #         f'<a href="{sample1}" target="_blank" download="Amazon" ><img src="{sample1}" height="100"></a>',
-            #         unsafe_allow_html=True,
-            #     )
-            #     sample5 = "./app/static/matrimonio.jpeg"
-            #     st.markdown(
-            #         f'<a href="{sample5}" target="_blank" download="attoMatrimonio" ><img src="{sample5}" height="100"></a>',
-            #         unsafe_allow_html=True,
-            #     )
+            col1, col2, col3 =  st.columns(3)
             #Sample2
-            with col2:
+            with col1:
                 sample2 = "./app/static/foca.jpg"
                 st.markdown(
                     f'<a href="{sample2}" target="_blank" download="focaDivertente" ><img src="{sample2}" height="100"></a>',
@@ -66,7 +54,7 @@ def main():
                     unsafe_allow_html=True,
                 )
             #Sample3
-            with col3:
+            with col2:
                 sample3 = "./app/static/funny.png"
                 st.markdown(
                     f'<a href="{sample3}" target="_blank" download="funnyMeme" ><img src="{sample3}" height="100"></a>',
@@ -78,12 +66,24 @@ def main():
                     unsafe_allow_html=True,
                 )                
             #Sample3
-            with col4:
+            with col3:
                 sample4 = "./app/static/giulia.jpeg"
                 st.markdown(
                     f'<a href="{sample4}" target="_blank" download ><img src="{sample4}" height="100"></a>',
                     unsafe_allow_html=True,
                 )
+            #Sample4
+            # with col4:
+            #     sample4 = "./app/static/amazon-lego.png"
+            #     st.markdown(
+            #         f'<a href="{sample1}" target="_blank" download="Amazon" ><img src="{sample1}" height="100"></a>',
+            #         unsafe_allow_html=True,
+            #     )
+            #     sample5 = "./app/static/matrimonio.jpeg"
+            #     st.markdown(
+            #         f'<a href="{sample5}" target="_blank" download="attoMatrimonio" ><img src="{sample5}" height="100"></a>',
+            #         unsafe_allow_html=True,
+            #     )
             
         st.info("© 2024 - GPT4-Vision - Microsoft Azure OpenAI - Demo")
     else:
