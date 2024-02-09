@@ -4,7 +4,7 @@ import base64
 import requests
 import json
 
-def gpt4VWithExtensions(imageenc, query, context, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt4VisionModelDeployment, temperature):
+def gpt4VWithExtensions(imageenc, query, context, ApiKey, VisionApiKey, ApiBase, VisionApiEndpoint, Gpt4VisionModelDeployment, temperature, gpt4venhancementsapiversion):
     """
     GPT-4 Turbo with vision and Azure AI enhancements
     """
@@ -22,7 +22,7 @@ def gpt4VWithExtensions(imageenc, query, context, ApiKey, VisionApiKey, ApiBase,
     # Endpoint
     base_url = f"{openai.api_base}openai/deployments/{model}"
     gpt4vision_endpoint = (
-        f"{base_url}/extensions/chat/completions?api-version=2023-12-01-preview"
+        f"{base_url}/extensions/chat/completions?api-version={gpt4venhancementsapiversion}"
     )
 
     # Header
@@ -34,7 +34,14 @@ def gpt4VWithExtensions(imageenc, query, context, ApiKey, VisionApiKey, ApiBase,
     # Payload
     json_data = {
         #"model": "gpt-4-vision-deployment",
-        "enhancements": {"ocr": {"enabled": True}, "grounding": {"enabled": True}},
+        "enhancements": {
+            "ocr": {
+                "enabled": True
+            }, 
+            "grounding": {
+                "enabled": True
+            }
+        },
         "dataSources": [
             {
                 "type": "AzureComputerVision",
@@ -45,11 +52,29 @@ def gpt4VWithExtensions(imageenc, query, context, ApiKey, VisionApiKey, ApiBase,
             }
         ],
         "messages": [
-            {"role": "system", "content": context},
-            {"role": "user", "content": [query, {"image": base_64_encoded_image}]},
+            {
+                "role": "system", 
+                "content": context
+            },
+            {
+                "role": "user", 
+                "content": [
+                    {
+                        "type": "text",
+                        "text": query
+                    },
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": "data:image/jpeg;base64," + base_64_encoded_image
+                        }
+                    }
+                ]
+            },
         ],
         "max_tokens": 4000,
         "temperature": temperature,
+        "stream": False
         #"top_p": 1,
     }
     
@@ -65,16 +90,17 @@ def gpt4VWithExtensions(imageenc, query, context, ApiKey, VisionApiKey, ApiBase,
     if response.status_code == 200:
         now = str(datetime.datetime.today().strftime("%d-%b-%Y %H:%M:%S"))
         result = json.loads(response.text)
+        jsn = response.json
         res = result["choices"][0]["message"]["content"]
         print(res)
-        
-        prompt_tokens = result["usage"]["prompt_tokens"]
-        completion_tokens = result["usage"]["completion_tokens"]
-        total_tokens = result["usage"]["total_tokens"]
 
         print("\n\033[1;31;32mDone:", now)
-        print(f"Prompt tokens = {prompt_tokens} | Completion tokens = {completion_tokens} \
-| Total tokens = {total_tokens}")
+        
+        if "usage" in result: 
+            prompt_tokens = result["usage"]["prompt_tokens"]
+            completion_tokens = result["usage"]["completion_tokens"]
+            total_tokens = result["usage"]["total_tokens"]
+            print(f"Prompt tokens = {prompt_tokens} | Completion tokens = {completion_tokens} | Total tokens = {total_tokens}")
         
         return res
     
@@ -88,7 +114,7 @@ def gpt4VWithExtensions(imageenc, query, context, ApiKey, VisionApiKey, ApiBase,
 
     return res
 
-def gpt4(query, context, apikey, apibase, gptmodel, temperature):
+def gpt4(query, context, apikey, apibase, gptmodel, temperature, gpt4apiversion):
     """
     GPT invoke
     """
@@ -100,7 +126,7 @@ def gpt4(query, context, apikey, apibase, gptmodel, temperature):
     
     # Endpoint
     base_url = f"{openai.api_base}openai/deployments/{model}"
-    endpoint = f"{base_url}/chat/completions?api-version=2023-12-01-preview"
+    endpoint = f"{base_url}/chat/completions?api-version={gpt4apiversion}"
 
     # Header
     headers = {"Content-Type": "application/json", "api-key": openai.api_key}
@@ -118,7 +144,8 @@ def gpt4(query, context, apikey, apibase, gptmodel, temperature):
             {"role": "user", "content": query },
         ],
         "max_tokens": 4000,
-        "temperature": temperature
+        "temperature": temperature,
+        "stream": False
     }
     
 

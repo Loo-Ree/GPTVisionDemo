@@ -31,7 +31,7 @@ def main():
         if st.button("Elabora"):
             if imagelink is not None and text != "":
                 message = st.success("Elaborazione in corso...")
-                result = gpt4_helper.gpt4VWithExtensions(imagelink.read(), text, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature)
+                result = gpt4_helper.gpt4VWithExtensions(imagelink.read(), text, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature, AzureKeys.Gpt4VisionEnhancementsApiVersion)
                 message.empty()
                 st.success(result)
             else:
@@ -60,7 +60,7 @@ def main():
                     f'<a href="{sample3}" target="_blank" download="funnyMeme" ><img src="{sample3}" height="100"></a>',
                     unsafe_allow_html=True,
                 )
-                sample7 = "./app/static/ricetta1.jpeg"
+                sample7 = "./app/static/ferrari.jpg"
                 st.markdown(
                     f'<a href="{sample7}" target="_blank" download="ricettaMedica" ><img src="{sample7}" height="100"></a>',
                     unsafe_allow_html=True,

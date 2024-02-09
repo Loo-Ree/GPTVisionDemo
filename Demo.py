@@ -68,6 +68,8 @@ if authentication_status:
     AzureKeys.VisionApiEndpoint = os.getenv("AZURE_MULTISERVICE_ACCOUNT_ENDPOINT", None if env_variables is None else env_variables.get("AZURE_MULTISERVICE_ACCOUNT_ENDPOINT"))
     AzureKeys.VisionApiKey = os.getenv("AZURE_MULTISERVICE_ACCOUNT_API_KEY", None if env_variables is None else env_variables.get("AZURE_MULTISERVICE_ACCOUNT_API_KEY"))
     AzureKeys.ChatGptModel = os.getenv("AZURE_OPENAI_GPT4_DEPLOYMENT_NAME", None if env_variables is None else env_variables.get("AZURE_OPENAI_GPT4_DEPLOYMENT_NAME"))
+    AzureKeys.Gpt4VisionEnhancementsApiVersion = os.getenv("AZURE_OPENAI_GPT4V_ENHANCEMENTS_API_VERSION", None if env_variables is None else env_variables.get("AZURE_OPENAI_GPT4V_ENHANCEMENTS_API_VERSION"))
+    AzureKeys.Gpt4ApiVersion = os.getenv("AZURE_OPENAI_GPT4_API_VERSION", None if env_variables is None else env_variables.get("AZURE_OPENAI_GPT4_API_VERSION"))
 
     # Print environment variables -- DEBUG
     print("ApiBase: " + ("None" if AzureKeys.ApiBase is None else AzureKeys.ApiBase))
@@ -76,6 +78,8 @@ if authentication_status:
     print("VisionApiEndpoint: " + ("None" if AzureKeys.VisionApiEndpoint is None else AzureKeys.VisionApiEndpoint))
     print("VisionApiKey: " + ("None" if AzureKeys.VisionApiKey is None else AzureKeys.VisionApiKey[:2] + '***'))
     print("ChatGptModel: " + ("None" if AzureKeys.ChatGptModel is None else AzureKeys.ChatGptModel))
+    print("Gpt4VisionEnhancementsApiVersion: " + ("None" if AzureKeys.Gpt4VisionEnhancementsApiVersion is None else AzureKeys.Gpt4VisionEnhancementsApiVersion))
+    print("Gpt4ApiVersion: " + ("None" if AzureKeys.Gpt4ApiVersion is None else AzureKeys.Gpt4ApiVersion))
     
 elif authentication_status == False:
     st.error('Username/password is incorrect')

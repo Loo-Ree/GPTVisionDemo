@@ -5,3 +5,5 @@ AZURE_OPENAI_GPT4V_DEPLOYMENT_NAME=<<azure-openai-model-deployment-for-gpt4visio
 AZURE_MULTISERVICE_ACCOUNT_ENDPOINT=<<azure-multiservice-account-endpoint>>
 AZURE_MULTISERVICE_ACCOUNT_API_KEY=<<azure-multiservice-account-api-key>>
 AZURE_OPENAI_GPT4_DEPLOYMENT_NAME=<<azure-openai-model-deployment-for-gpt4>>
+AZURE_OPENAI_GPT4V_ENHANCEMENTS_API_VERSION=<<azure-openai-gpt4v-enhancements-api-version>>
+AZURE_OPENAI_GPT4_API_VERSION=<<azure-openai-gpt4-api-version>>

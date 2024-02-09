@@ -37,7 +37,7 @@ def main():
         if st.button("Query"):
             if imagelink is not None and query != "":
                 message = st.success("Elaborazione in corso...")
-                result = gpt4_helper.gpt4VWithExtensions(imagelink.read(), query, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature)
+                result = gpt4_helper.gpt4VWithExtensions(imagelink.read(), query, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature, AzureKeys.Gpt4VisionEnhancementsApiVersion)
                 message.empty()
                 st.success(result)
             else:
@@ -76,7 +76,7 @@ def main():
             if imagelink is not None and query != "":
                 message = st.success("Analisi in corso...")
                 prompt = CAIPrompt
-                result = gpt4_helper.gpt4VWithExtensions(imagelink.read(), prompt, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature)
+                result = gpt4_helper.gpt4VWithExtensions(imagelink.read(), prompt, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature, AzureKeys.Gpt4VisionEnhancementsApiVersion)
                 message.empty()
                 st.success(result)
             else:

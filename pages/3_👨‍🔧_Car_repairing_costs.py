@@ -52,14 +52,14 @@ def main():
                 message = st.success("Analisi in corso...")
                 #analisi della foto
                 prompt = "descrivi in dettaglio i danni a questa automobile"
-                resDescription = gpt4_helper.gpt4VWithExtensions(imagelink.read(), prompt, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature)
+                resDescription = gpt4_helper.gpt4VWithExtensions(imagelink.read(), prompt, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature, AzureKeys.Gpt4VisionEnhancementsApiVersion)
                 message.empty()
                 st.success(resDescription)                
                 #analisi dei danni
                 prompt = CostPrompt
                 query = f"{prompt}:\n'{resDescription}'"
                 message = st.success("Stima costi in corso...")
-                result = gpt4_helper.gpt4(query, context, AzureKeys.ApiKey, AzureKeys.ApiBase, AzureKeys.ChatGptModel, temperature)
+                result = gpt4_helper.gpt4(query, context, AzureKeys.ApiKey, AzureKeys.ApiBase, AzureKeys.ChatGptModel, temperature, AzureKeys.Gpt4ApiVersion)
                 message.empty()
                 st.success(result)
             else:

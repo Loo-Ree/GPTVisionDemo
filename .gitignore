@@ -6,5 +6,4 @@
 /utilities/__pycache__
 /gpt4venv
 env.txt
-Notebooks/b64.ipynb
-Notebooks/b64.txt
+Notebooks/*

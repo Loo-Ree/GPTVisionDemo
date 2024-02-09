@@ -121,6 +121,8 @@ The following table list out the required environment variables with a descripti
 | AZURE_OPENAI_GPT4_DEPLOYMENT_NAME | Your model deployment name, the one that was defined when you deployed GPT4 standard in your Azure OpenAI Studio. |
 | AZURE_MULTISERVICE_ACCOUNT_ENDPOINT | Fill it with your Azure AI Services Multi-service account endpoint. You can find it on your Azure resouce, in the section "Keys and Endpoint". |
 | AZURE_MULTISERVICE_ACCOUNT_API_KEY | Fill it with your Azure AI Services Multi-service account ApiKey. You can find it on your Azure resouce, in the section "Keys and Endpoint". | 
+| AZURE_OPENAI_GPT4V_ENHANCEMENTS_API_VERSION | Use the latest and greatest version of the API for GPT4 Vision with Enhancements like "2023-12-01-preview" | 
+| AZURE_OPENAI_GPT4_API_VERSION | Use the latest and greatest version of the API like "2023-12-01-preview" | 
 
 
 ## Update frequency
