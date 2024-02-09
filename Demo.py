@@ -54,19 +54,10 @@ if authentication_status:
 
     st.info("© 2024 - Azure OpenAI - Demo by Microsoft Customer Success Unit team")
 
-    # Load local environment if available
-    # env_variables = None
-    # try:
-    #     env_variables = load_env_variables('.env')
-    #     print('Environment file loaded')
-    # except FileNotFoundError:
-    #     print('Environment file not found')
 
     # Load environment variables
     if not load_dotenv():
         print(".env file not found")
-
-# Continue with your code...
 
     # Load environment variables
     AzureKeys.ApiBase = os.getenv("AZURE_OPENAI_API_ENDPOINT")
@@ -77,15 +68,6 @@ if authentication_status:
     AzureKeys.ChatGptModel = os.getenv("AZURE_OPENAI_GPT4_DEPLOYMENT_NAME")
     AzureKeys.Gpt4VisionEnhancementsApiVersion = os.getenv("AZURE_OPENAI_GPT4V_ENHANCEMENTS_API_VERSION")
     AzureKeys.Gpt4ApiVersion = os.getenv("AZURE_OPENAI_GPT4_API_VERSION")
-    
-# AzureKeys.ApiBase = os.getenv("AZURE_OPENAI_API_ENDPOINT", None if env_variables is None else env_variables.get("AZURE_OPENAI_API_ENDPOINT"))
-# AzureKeys.ApiKey = os.getenv("AZURE_OPENAI_APIKEY", None if env_variables is None else env_variables.get("AZURE_OPENAI_APIKEY"))
-# AzureKeys.Gpt4VisionModelDeployment = os.getenv("AZURE_OPENAI_GPT4V_DEPLOYMENT_NAME", None if env_variables is None else env_variables.get("AZURE_OPENAI_GPT4V_DEPLOYMENT_NAME"))
-# AzureKeys.VisionApiEndpoint = os.getenv("AZURE_MULTISERVICE_ACCOUNT_ENDPOINT", None if env_variables is None else env_variables.get("AZURE_MULTISERVICE_ACCOUNT_ENDPOINT"))
-# AzureKeys.VisionApiKey = os.getenv("AZURE_MULTISERVICE_ACCOUNT_API_KEY", None if env_variables is None else env_variables.get("AZURE_MULTISERVICE_ACCOUNT_API_KEY"))
-# AzureKeys.ChatGptModel = os.getenv("AZURE_OPENAI_GPT4_DEPLOYMENT_NAME", None if env_variables is None else env_variables.get("AZURE_OPENAI_GPT4_DEPLOYMENT_NAME"))
-# AzureKeys.Gpt4VisionEnhancementsApiVersion = os.getenv("AZURE_OPENAI_GPT4V_ENHANCEMENTS_API_VERSION", None if env_variables is None else env_variables.get("AZURE_OPENAI_GPT4V_ENHANCEMENTS_API_VERSION"))
-# AzureKeys.Gpt4ApiVersion = os.getenv("AZURE_OPENAI_GPT4_API_VERSION", None if env_variables is None else env_variables.get("AZURE_OPENAI_GPT4_API_VERSION"))
 
     # Print environment variables -- DEBUG
     print("ApiBase: " + ("None" if AzureKeys.ApiBase is None else AzureKeys.ApiBase))
