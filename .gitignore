@@ -6,4 +6,5 @@
 /utilities/__pycache__
 /gpt4venv
 env.txt
+.env
 Notebooks/*

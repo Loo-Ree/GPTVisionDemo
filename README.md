@@ -83,7 +83,7 @@ If required, wipe out the old zip file before creating a new one.
 
 ## Local Deployment
 
-The application can be run locally. For doing that, you need to rename the file ```env-example.txt``` to ```env.txt``` filling up the variables. For a description, check 
+The application can be run locally. For doing that, you need to rename the file ```env-example.txt``` to ```.env``` filling up the variables. For a description, check 
 
 Assuming you are located into the project folder, use the following command run:
 

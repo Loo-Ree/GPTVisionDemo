@@ -5,3 +5,4 @@ PyYAML==6.0.1
 Requests==2.31.0
 streamlit==1.30.0
 streamlit_authenticator==0.2.3
+load_dotenv
