@@ -7,3 +7,6 @@ AZURE_MULTISERVICE_ACCOUNT_API_KEY=<<azure-multiservice-account-api-key>>
 AZURE_OPENAI_GPT4_DEPLOYMENT_NAME=<<azure-openai-model-deployment-for-gpt4>>
 AZURE_OPENAI_GPT4V_ENHANCEMENTS_API_VERSION=<<azure-openai-gpt4v-enhancements-api-version>>
 AZURE_OPENAI_GPT4_API_VERSION=<<azure-openai-gpt4-api-version>>
+AZURE_SPEECHSRV_API_KEY=<<azure-speech-service-api-key>>
+AZURE_SPEECHSRV_REGION=<<azure-speech-region>>
+AZURE_SPEECHSRV_HOST=<<azure-host, you can leave it as: customvoice.api.speech.microsoft.com>>

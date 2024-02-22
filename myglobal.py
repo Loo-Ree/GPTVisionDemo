@@ -19,6 +19,9 @@ class AzureKeys:
     #travel agent
     TravelAgentApiKey = ""
     TravelAgentApiEndpoint = ""
+    SpeechApiKey = ""
+    SpeechRegion = ""
+    SpeechHost = ""
 
 def authenticate(scope):
     """

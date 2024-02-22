@@ -47,6 +47,7 @@ if authentication_status:
     - 👁️ Vision - Chiedi a GPT4-Vision e Azure AI Vision di analizzare una immagine
     - 🚙 Car Accident - Carica un modulo di Convenzione Indennizzo Diretto (CAI) relativo ad un incidente e chiedi a GPT4-Vision di analizzarlo
     - 👨‍🔧 Car Repairing Costs - Valuta e stima i costi di riparazione di un'automobile incidentata
+    - 🤖 Usa un Avatar - Chiedi a GPT4-Vision e Azure AI Vision di analizzare un'immagine e poi lascia che sia un avatar a raccontartela
         
     ### Vuoi saperne di più? [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service)
     """
@@ -68,6 +69,9 @@ if authentication_status:
     AzureKeys.ChatGptModel = os.getenv("AZURE_OPENAI_GPT4_DEPLOYMENT_NAME")
     AzureKeys.Gpt4VisionEnhancementsApiVersion = os.getenv("AZURE_OPENAI_GPT4V_ENHANCEMENTS_API_VERSION")
     AzureKeys.Gpt4ApiVersion = os.getenv("AZURE_OPENAI_GPT4_API_VERSION")
+    AzureKeys.SpeechApiKey = os.getenv("AZURE_SPEECHSRV_API_KEY")
+    AzureKeys.SpeechRegion = os.getenv("AZURE_SPEECHSRV_REGION")
+    AzureKeys.SpeechHost = os.getenv("AZURE_SPEECHSRV_HOST")
 
     # Print environment variables -- DEBUG
     print("ApiBase: " + ("None" if AzureKeys.ApiBase is None else AzureKeys.ApiBase))
@@ -78,6 +82,9 @@ if authentication_status:
     print("ChatGptModel: " + ("None" if AzureKeys.ChatGptModel is None else AzureKeys.ChatGptModel))
     print("Gpt4VisionEnhancementsApiVersion: " + ("None" if AzureKeys.Gpt4VisionEnhancementsApiVersion is None else AzureKeys.Gpt4VisionEnhancementsApiVersion))
     print("Gpt4ApiVersion: " + ("None" if AzureKeys.Gpt4ApiVersion is None else AzureKeys.Gpt4ApiVersion))
+    print("SpeechApiKey: " + ("None" if AzureKeys.SpeechApiKey is None else AzureKeys.SpeechApiKey[:2] + '***'))
+    print("SpeechRegion: " + ("None" if AzureKeys.SpeechRegion is None else AzureKeys.SpeechRegion))
+    print("SpeechHost: " + ("None" if AzureKeys.SpeechHost is None else AzureKeys.SpeechHost))
     
 elif authentication_status == False:
     st.error('Username/password is incorrect')

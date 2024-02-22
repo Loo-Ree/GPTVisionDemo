@@ -5,6 +5,7 @@
 /__pycache__
 /utilities/__pycache__
 /gpt4venv
+*.mp4
 env.txt
 .env
 Notebooks/*
