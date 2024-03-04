@@ -9,3 +9,5 @@
 env.txt
 .env
 Notebooks/*
+credentials.yaml
+deploy.zip
