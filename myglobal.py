@@ -6,8 +6,12 @@ class AzureKeys:
     #vision
     ApiBase = ""
     ApiKey = ""
+    Gpt4oApiBase = ""
+    Gpt4oApiKey = ""
     Gpt4VisionModelDeployment = ""
+    Gpt4oModelDeployment = ""
     Gpt4VisionEnhancementsApiVersion = ""
+    Gpt4oApiVersion = ""
     Gpt4ApiVersion = ""
     VisionApiEndpoint = ""
     VisionApiKey = ""
@@ -19,9 +23,13 @@ class AzureKeys:
     #travel agent
     TravelAgentApiKey = ""
     TravelAgentApiEndpoint = ""
+    #Speech
     SpeechApiKey = ""
     SpeechRegion = ""
     SpeechHost = ""
+    #Document Intelligence
+    DocIntEndpoint = ""
+    DocIntKey = ""
 
 def authenticate(scope):
     """

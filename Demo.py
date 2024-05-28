@@ -48,7 +48,7 @@ if authentication_status:
     - 🚙 Car Accident - Carica un modulo di Convenzione Indennizzo Diretto (CAI) relativo ad un incidente e chiedi a GPT4-Vision di analizzarlo
     - 👨‍🔧 Car Repairing Costs - Valuta e stima i costi di riparazione di un'automobile incidentata
     - 🤖 Usa un Avatar - Chiedi a GPT4-Vision e Azure AI Vision di analizzare un'immagine e poi lascia che sia un avatar a raccontartela
-        
+    - 🪄 Omni - GPT4 Omni, il nuovo modello multimodale in grado di elaborare testi e immagini ancora più efficacemente   
     ### Vuoi saperne di più? [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service)
     """
     )
@@ -63,25 +63,35 @@ if authentication_status:
     # Load environment variables
     AzureKeys.ApiBase = os.getenv("AZURE_OPENAI_API_ENDPOINT")
     AzureKeys.ApiKey = os.getenv("AZURE_OPENAI_APIKEY")
+    AzureKeys.Gpt4oApiBase = os.getenv("AZURE_OPENAI_GPT4O_API_ENDPOINT")
+    AzureKeys.Gpt4oApiKey = os.getenv("AZURE_OPENAI_GPT4O_APIKEY")
     AzureKeys.Gpt4VisionModelDeployment = os.getenv("AZURE_OPENAI_GPT4V_DEPLOYMENT_NAME")
+    AzureKeys.Gpt4oModelDeployment = os.getenv("AZURE_OPENAI_GPT4O_DEPLOYMENT_NAME")
     AzureKeys.VisionApiEndpoint = os.getenv("AZURE_MULTISERVICE_ACCOUNT_ENDPOINT")
     AzureKeys.VisionApiKey = os.getenv("AZURE_MULTISERVICE_ACCOUNT_API_KEY")
     AzureKeys.ChatGptModel = os.getenv("AZURE_OPENAI_GPT4_DEPLOYMENT_NAME")
     AzureKeys.Gpt4VisionEnhancementsApiVersion = os.getenv("AZURE_OPENAI_GPT4V_ENHANCEMENTS_API_VERSION")
     AzureKeys.Gpt4ApiVersion = os.getenv("AZURE_OPENAI_GPT4_API_VERSION")
+    AzureKeys.Gpt4oApiVersion = os.getenv("AZURE_OPENAI_GPT4O_API_VERSION")
     AzureKeys.SpeechApiKey = os.getenv("AZURE_SPEECHSRV_API_KEY")
     AzureKeys.SpeechRegion = os.getenv("AZURE_SPEECHSRV_REGION")
     AzureKeys.SpeechHost = os.getenv("AZURE_SPEECHSRV_HOST")
+    AzureKeys.DocIntEndpoint = os.getenv("AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT")
+    AzureKeys.DocIntApiKey = os.getenv("AZURE_DOCUMENT_INTELLIGENCE_KEY")
 
     # Print environment variables -- DEBUG
     print("ApiBase: " + ("None" if AzureKeys.ApiBase is None else AzureKeys.ApiBase))
     print("ApiKey: " + ("None" if AzureKeys.ApiKey is None else AzureKeys.ApiKey[:2] + '***'))
     print("Gpt4VisionModelDeployment: " + ("None" if AzureKeys.Gpt4VisionModelDeployment is None else AzureKeys.Gpt4VisionModelDeployment))
+    print("Gpt4oApiBase: " + ("None" if AzureKeys.Gpt4oApiBase is None else AzureKeys.Gpt4oApiBase))
+    print("Gpt4oApiKey: " + ("None" if AzureKeys.Gpt4oApiKey is None else AzureKeys.Gpt4oApiKey[:2] + '***'))
+    print("Gpt4oModelDeployment: " + ("None" if AzureKeys.Gpt4oModelDeployment is None else AzureKeys.Gpt4oModelDeployment))
     print("VisionApiEndpoint: " + ("None" if AzureKeys.VisionApiEndpoint is None else AzureKeys.VisionApiEndpoint))
     print("VisionApiKey: " + ("None" if AzureKeys.VisionApiKey is None else AzureKeys.VisionApiKey[:2] + '***'))
     print("ChatGptModel: " + ("None" if AzureKeys.ChatGptModel is None else AzureKeys.ChatGptModel))
     print("Gpt4VisionEnhancementsApiVersion: " + ("None" if AzureKeys.Gpt4VisionEnhancementsApiVersion is None else AzureKeys.Gpt4VisionEnhancementsApiVersion))
     print("Gpt4ApiVersion: " + ("None" if AzureKeys.Gpt4ApiVersion is None else AzureKeys.Gpt4ApiVersion))
+    print("Gpt4oApiVersion: " + ("None" if AzureKeys.Gpt4oApiVersion is None else AzureKeys.Gpt4oApiVersion))
     print("SpeechApiKey: " + ("None" if AzureKeys.SpeechApiKey is None else AzureKeys.SpeechApiKey[:2] + '***'))
     print("SpeechRegion: " + ("None" if AzureKeys.SpeechRegion is None else AzureKeys.SpeechRegion))
     print("SpeechHost: " + ("None" if AzureKeys.SpeechHost is None else AzureKeys.SpeechHost))

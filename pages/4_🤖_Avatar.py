@@ -92,7 +92,7 @@ def main():
                     unsafe_allow_html=True,
                 )
             
-        st.info("© 2024 - GPT4-Vision - Microsoft Azure OpenAI - Demo")
+        st.info("© 2024 - Azure OpenAI - Demo by Microsoft Customer Success Unit team")
     else:
         st.error("...credo serva una password... ⛔")
 

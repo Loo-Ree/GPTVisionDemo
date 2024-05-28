@@ -1,37 +1,58 @@
 import streamlit as st
 
 import utilities.gpt4_helper as gpt4_helper
+import utilities.ocr_helper as ocr_helper
 
 from myglobal import AzureKeys
 
 st.set_page_config(
-page_title="GPT4-Vision demo",
-page_icon=":eye:"
+page_title="GPT4o demo",
+page_icon=":magic_wand:"
 )
 
 def main():
     if st.session_state['authentication_status']:
-        st.title("GPT4-Vision demo")
+        st.title("GPT4 Omni demo")
+        if 'ocr_text' not in st.session_state:
+            st.session_state['ocr_text'] = None
         
         # Carica l'immagine
         imagelink = st.file_uploader("Carica un'immagine", type=["jpg", "jpeg", "png"])
         if imagelink is not None:
+            image_content = imagelink.read()
             st.image(imagelink, caption=imagelink.name, use_column_width=True)
+            
+        # Estrai il testo dall'immagine
+        extract_text = st.radio("Estrai Testo con OCR", ('Off', 'On'))
+        
+        # Set ocr_text to None if extract_text is 'Off'
+        if extract_text == 'Off':
+            st.session_state['ocr_text'] = None
+        
+        # Seleziona l'OCR
+        if extract_text == 'On':
+            orc_engine = st.radio("Quale OCR vuoi usare?", ('AI Vision', 'Document Intelligence'))
         
         # Inserisci il testo
-        text = st.text_input("Inserisci un testo", "What is it?")
+        text = st.text_input("Inserisci un testo", "Cosa rappresenta l'immagine?")
         
                 #prompt config
         promptconfig = st.expander("Prompt Config", expanded=False)
         with promptconfig:
             context = st.text_area("System Prompt", "You are a helpful assistant. ALWAYS ANSWER IN ITALIAN.", height=200)
-            temperature = st.slider("Temperature", min_value=0.0, max_value=1.0, value=0.7, step=0.1)
+            temperature = st.slider("Temperature", min_value=0.0, max_value=1.0, value=0.0, step=0.1)
             
         # Elabora l'immagine e il testo quando viene premuto il pulsante
         if st.button("Elabora"):
             if imagelink is not None and text != "":
+                if extract_text == 'On':
+                    if orc_engine == 'Document Intelligence':
+                        st.session_state['ocr_text'] = ocr_helper.extractOCRDocInt(image_content, AzureKeys.DocIntApiKey, AzureKeys.DocIntEndpoint)
+                    else:
+                        st.session_state['ocr_text'] = ocr_helper.extractOCR(image_content, AzureKeys.VisionApiKey, AzureKeys.VisionApiEndpoint)
+                    st.success(st.session_state['ocr_text'])
                 message = st.success("Elaborazione in corso...")
-                result = gpt4_helper.gpt4VWithExtensions(imagelink.read(), text, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature, AzureKeys.Gpt4VisionEnhancementsApiVersion)
+                result = gpt4_helper.gpt4o(image_content, text, context, AzureKeys.Gpt4oApiKey, AzureKeys.Gpt4oApiBase, AzureKeys.Gpt4oModelDeployment, temperature, AzureKeys.Gpt4oApiVersion, st.session_state['ocr_text'])
                 message.empty()
                 st.success(result)
             else:

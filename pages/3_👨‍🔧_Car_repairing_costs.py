@@ -11,11 +11,12 @@ page_icon=":male-mechanic:"
 
 def main():
     if st.session_state['authentication_status']:
-        st.title("GPT4-Vision demo - Stima costi di carrozzeria")
+        st.title("GPT4omni demo - Stima costi di carrozzeria")
         
         # Carica l'immagine
         imagelink = st.file_uploader("Carica la foto di una automobile incidentata", type=["jpg", "jpeg", "png"])
         if imagelink is not None:
+            image_content = imagelink.read()
             st.image(imagelink, caption=imagelink.name, use_column_width=True)
         
         #costi di riparazione
@@ -23,15 +24,16 @@ def main():
         - cofano nuovo: 4000€-5000€
         - paraurti nuovo: 2500€-3000€
         - griglia nuova: 500€-800€
-        - fari nuovi: 1600€-2900€
+        - fari nuovi: 500€-1500€
         - airbag nuovo: 1000€-3000€
-        - costo orario di manodopera: 500€/ora
+        - costo orario di manodopera: 80€/ora
                 """)
         
         # Context
         context = """
-            You are a car mechanic AI expert that support Insurance agent to list car damages from a picture.
-            ALWAYS ANSWER IN ITALIAN.
+            Sei un assistente che supporta agenti assicurativi nella stima dei costi di riparazione di un'automobile incidentata.
+            La fonte informativa è una foto dell'auto danneggiata. 
+            Rispondi sempre in ITALIANO.
         """
         
         #prompt config
@@ -51,8 +53,8 @@ def main():
             if imagelink is not None and prezzi != "":
                 message = st.success("Analisi in corso...")
                 #analisi della foto
-                prompt = "descrivi in dettaglio i danni a questa automobile"
-                resDescription = gpt4_helper.gpt4VWithExtensions(imagelink.read(), prompt, context, AzureKeys.ApiKey, AzureKeys.VisionApiKey, AzureKeys.ApiBase, AzureKeys.VisionApiEndpoint, AzureKeys.Gpt4VisionModelDeployment, temperature, AzureKeys.Gpt4VisionEnhancementsApiVersion)
+                prompt = "descrivi in dettaglio i danni a questa automobile senza fornire una stima, solo un elenco dei danni"
+                resDescription = gpt4_helper.gpt4o(image_content, prompt, context, AzureKeys.Gpt4oApiKey, AzureKeys.Gpt4oApiBase, AzureKeys.Gpt4oModelDeployment, temperature, AzureKeys.Gpt4oApiVersion, None)
                 message.empty()
                 st.success(resDescription)                
                 #analisi dei danni
@@ -84,7 +86,7 @@ def main():
                     unsafe_allow_html=True,
                 )
             
-        st.info("© 2024 - GPT4-Vision - Microsoft Azure OpenAI - Demo")
+        st.info("© 2024 - Azure OpenAI - Demo by Microsoft Customer Success Unit team")
     else:
         st.error("...credo serva una password... ⛔")
         
